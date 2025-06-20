@@ -1,0 +1,115 @@
+{
+  "experiment_date": "2025-06-03T17:37:33.957169",
+  "experiment_focus": "Dirty Dataset Comparison (Experiment 3: D3, T3, M3, C3)",
+  "datasets_provided": {
+    "ibm_raw_reference_csv": "data/ibm_dataset.csv",
+    "dirty_dataset_csv": "data/ibm_dataset_dirty.csv"
+  },
+  "baseline": {
+    "dirty_ibm": {
+      "pipeline_type": "baseline",
+      "acquired_data_path": "results/experiment_3/baseline/dirty_ibm/01_dirty_ibm_acquired_data.csv",
+      "preprocessed_data_path": "results/experiment_3/baseline/dirty_ibm/02_dirty_ibm_preprocessed_data.csv",
+      "engineered_data_path": "results/experiment_3/baseline/dirty_ibm/03_dirty_ibm_engineered_features.csv",
+      "feature_selector_path": "results/experiment_1/baseline/ibm/artifacts/feature_selector.pkl",
+      "expected_cols_path": "results/experiment_1/baseline/ibm/artifacts/expected_cols.json",
+      "model_trained": false,
+      "model_path": "results/experiment_3/baseline/dirty_ibm/artifacts",
+      "evaluation_summary_path": "results/experiment_3/baseline/dirty_ibm/evaluation_summary.json",
+      "auc": {
+        "point_estimate": 0.9228515625000001,
+        "ci_lower": 0.875344085359598,
+        "ci_upper": 0.9602854794277083
+      },
+      "accuracy": {
+        "point_estimate": 0.868421052631579,
+        "ci_lower": 0.8157894736842105,
+        "ci_upper": 0.9210526315789473
+      },
+      "precision": {
+        "point_estimate": 0.55,
+        "ci_lower": 0.39533353733170135,
+        "ci_upper": 0.7105263157894737
+      },
+      "recall": {
+        "point_estimate": 0.9166666666666666,
+        "ci_lower": 0.7776515151515153,
+        "ci_upper": 1.0
+      },
+      "f1_score": {
+        "point_estimate": 0.6874999999999999,
+        "ci_lower": 0.5416170634920635,
+        "ci_upper": 0.805203823953824
+      },
+      "fairness_metrics": {
+        "demographic_parity_difference_gender": 0.13920454545454544,
+        "equalized_odds_difference_gender": 0.1428571428571429,
+        "demographic_parity_difference_age_binned": 0.49290060851926976,
+        "equalized_odds_difference_age_binned": 0.5
+      }
+    }
+  },
+  "mlops": {
+    "dirty_ibm": {
+      "pipeline_type": "mlops",
+      "acquired_data_path": "results/experiment_3/mlops/dirty_ibm/01_dirty_ibm_acquired_data.csv",
+      "drift_report_path": "results/experiment_3/mlops/dirty_ibm/01b_drift_report.html",
+      "drift_status_path": "results/experiment_3/mlops/dirty_ibm/01b_drift_status.json",
+      "drift_status": "error_status_file_not_found",
+      "preprocessed_data_path": "results/experiment_3/mlops/dirty_ibm/02_dirty_ibm_preprocessed_data.csv",
+      "engineered_data_path": "results/experiment_3/mlops/dirty_ibm/03_dirty_ibm_engineered_features.csv",
+      "feature_selector_path_used": "results/experiment_3/mlops/dirty_ibm/artifacts/feature_selector.pkl",
+      "expected_cols_path_used": "results/experiment_3/mlops/dirty_ibm/artifacts/expected_cols.json",
+      "model_trained_this_run": true,
+      "model_path": "results/experiment_3/mlops/dirty_ibm/artifacts",
+      "evaluation_summary_path": "results/experiment_3/mlops/dirty_ibm/evaluation_summary.json",
+      "auc": {
+        "point_estimate": 0.8616536458333334,
+        "ci_lower": 0.7969788713587248,
+        "ci_upper": 0.9185418146306817
+      },
+      "accuracy": {
+        "point_estimate": 0.8223684210526315,
+        "ci_lower": 0.7631578947368421,
+        "ci_upper": 0.881578947368421
+      },
+      "precision": {
+        "point_estimate": 0.45714285714285713,
+        "ci_lower": 0.2903225806451613,
+        "ci_upper": 0.6250892857142857
+      },
+      "recall": {
+        "point_estimate": 0.6666666666666666,
+        "ci_lower": 0.47049019607843146,
+        "ci_upper": 0.8500462962962962
+      },
+      "f1_score": {
+        "point_estimate": 0.5423728813559322,
+        "ci_lower": 0.3636363636363636,
+        "ci_upper": 0.6885245901639345
+      },
+      "fairness_metrics": {
+        "demographic_parity_difference_gender": 0.14204545454545456,
+        "equalized_odds_difference_gender": 0.19169169169169167,
+        "demographic_parity_difference_age_binned": 0.49290060851926976,
+        "equalized_odds_difference_age_binned": 1.0
+      },
+      "performance_tracking_error": "Script python /Users/baueteeling/Library/CloudStorage/OneDrive-Personal/ONEDRIVE/STUDIE/THESIS/AttritionMLOps/scripts/../monitoring/performance_tracker.py --model_path results/experiment_3/mlops/dirty_ibm/artifacts/model.pkl --reference_data results/experiment_3/mlops/dirty_ibm/03_dirty_ibm_engineered_features.csv --output_dir results/experiment_3/mlops/dirty_ibm failed with exit code 1. Check log: results/experiment_3/mlops/dirty_ibm/pipeline_log.txt"
+    }
+  },
+  "comparison": {
+    "dirty_ibm": {
+      "accuracy_diff": -0.046052631578947456,
+      "f1_diff": -0.1451271186440677,
+      "roc_auc_diff": -0.06119791666666674,
+      "dpd_gender_diff": 0.002840909090909116,
+      "eod_gender_diff": 0.04883454883454877,
+      "dpd_age_binned_diff": 0.0,
+      "eod_age_binned_diff": 0.5
+    }
+  },
+  "mlops_metrics_dirty_run": {
+    "drift_detected_in_this_run": false,
+    "pipeline_duration_seconds": null
+  }
+}

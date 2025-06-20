@@ -1,0 +1,93 @@
+{
+  "experiment_date": "2025-06-06T12:44:30.510512",
+  "timestamp": "20250606_124430",
+  "datasets": {
+    "ibm": "data/ibm_dataset.csv"
+  },
+  "baseline": {
+    "ibm": {
+      "pipeline_type": "baseline",
+      "acquired_data_path": "results/experiment_1/run_20250606_124430/baseline/ibm/01_ibm_acquired_data.csv",
+      "preprocessed_data_path": "results/experiment_1/run_20250606_124430/baseline/ibm/02_ibm_preprocessed_data.csv",
+      "engineered_data_path": "results/experiment_1/run_20250606_124430/baseline/ibm/03_ibm_engineered_features.csv",
+      "feature_selector_path": "results/experiment_1/run_20250606_124430/baseline/ibm/artifacts/feature_selector.pkl",
+      "expected_cols_path": "results/experiment_1/run_20250606_124430/baseline/ibm/artifacts/expected_cols.json",
+      "model_trained": true,
+      "model_path": "results/experiment_1/run_20250606_124430/baseline/ibm/artifacts",
+      "error": "Script python /Users/baueteeling/Library/CloudStorage/OneDrive-Personal/ONEDRIVE/STUDIE/THESIS/AttritionMLOps/scripts/05_model_evaluator.py --input_file results/experiment_1/run_20250606_124430/baseline/ibm/03_ibm_engineered_features.csv --model_path results/experiment_1/run_20250606_124430/baseline/ibm/artifacts/model.pkl --output_dir results/experiment_1/run_20250606_124430/baseline/ibm failed with exit code 1. Check log: results/experiment_1/run_20250606_124430/baseline/ibm/pipeline_log.txt",
+      "pipeline_duration_seconds": 110.110777,
+      "resource_usage_summary": {
+        "avg_cpu_percent_system": 94.77,
+        "max_cpu_percent_system": 100.0,
+        "avg_virtual_memory_percent_system": 78.63,
+        "max_virtual_memory_percent_system": 80.1,
+        "log_file": "resource_usage.csv"
+      }
+    }
+  },
+  "mlops": {
+    "ibm": {
+      "pipeline_type": "mlops",
+      "acquired_data_path": "results/experiment_1/run_20250606_124430/mlops/ibm/01_ibm_acquired_data.csv",
+      "drift_status": "skipped_detect_drift_false",
+      "preprocessed_data_path": "results/experiment_1/run_20250606_124430/mlops/ibm/02_ibm_preprocessed_data.csv",
+      "engineered_data_path": "results/experiment_1/run_20250606_124430/mlops/ibm/03_ibm_engineered_features.csv",
+      "feature_selector_path_used": "results/experiment_1/run_20250606_124430/mlops/ibm/artifacts/feature_selector.pkl",
+      "expected_cols_path_used": "results/experiment_1/run_20250606_124430/mlops/ibm/artifacts/expected_cols.json",
+      "model_trained_this_run": true,
+      "model_path": "results/experiment_1/run_20250606_124430/mlops/ibm/artifacts",
+      "error": "Script python /Users/baueteeling/Library/CloudStorage/OneDrive-Personal/ONEDRIVE/STUDIE/THESIS/AttritionMLOps/scripts/05_model_evaluator.py --input_file results/experiment_1/run_20250606_124430/mlops/ibm/03_ibm_engineered_features.csv --model_path results/experiment_1/run_20250606_124430/mlops/ibm/artifacts/model.pkl --output_dir results/experiment_1/run_20250606_124430/mlops/ibm failed with exit code 1. Check log: results/experiment_1/run_20250606_124430/mlops/ibm/pipeline_log.txt",
+      "pipeline_duration_seconds": 104.601742,
+      "resource_usage_summary": {
+        "avg_cpu_percent_system": 94.92,
+        "max_cpu_percent_system": 100.0,
+        "avg_virtual_memory_percent_system": 78.39,
+        "max_virtual_memory_percent_system": 79.3,
+        "log_file": "resource_usage.csv"
+      }
+    }
+  },
+  "comparison": {
+    "ibm": {
+      "accuracy_diff": NaN,
+      "f1_diff": NaN,
+      "roc_auc_diff": NaN
+    }
+  },
+  "statistical_comparison": {
+    "test_type": "wilcoxon_signed_rank",
+    "statistic": 1.0,
+    "p_value": 1.0,
+    "significant": false,
+    "better_model": null,
+    "mean_score_a": 0.49764321647247123,
+    "mean_score_b": 0.49797680445311804,
+    "model_a_name": "MLOps Pipeline",
+    "model_b_name": "Baseline Pipeline",
+    "sample_size": 10,
+    "fold_scores_a": [
+      0.37499999999999994,
+      0.5333333333333333,
+      0.3870967741935484,
+      0.6451612903225806,
+      0.6486486486486486,
+      0.5,
+      0.6285714285714286,
+      0.4137931034482759,
+      0.5,
+      0.3448275862068965
+    ],
+    "fold_scores_b": [
+      0.37499999999999994,
+      0.5333333333333333,
+      0.3870967741935484,
+      0.6451612903225806,
+      0.6486486486486486,
+      0.4848484848484849,
+      0.6470588235294118,
+      0.4137931034482759,
+      0.5,
+      0.3448275862068965
+    ]
+  }
+}

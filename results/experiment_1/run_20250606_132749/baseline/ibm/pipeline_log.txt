@@ -1,0 +1,138 @@
+Starting Baseline Pipeline for source: ibm at 2025-06-06T13:27:49.322966
+Output Directory: results/experiment_1/run_20250606_132749/baseline/ibm
+Evaluate Only: False
+Reference Artifacts Directory: None
+
+Executing: python /Users/baueteeling/Library/CloudStorage/OneDrive-Personal/ONEDRIVE/STUDIE/THESIS/AttritionMLOps/scripts/01_data_acquirer.py --input_file /Users/baueteeling/Library/CloudStorage/OneDrive-Personal/ONEDRIVE/STUDIE/THESIS/AttritionMLOps/scripts/../data/ibm_dataset.csv --output_file results/experiment_1/run_20250606_132749/baseline/ibm/01_ibm_acquired_data.csv
+--- Starting Step 1: Data Loading ---
+Loading data from /Users/baueteeling/Library/CloudStorage/OneDrive-Personal/ONEDRIVE/STUDIE/THESIS/AttritionMLOps/scripts/../data/ibm_dataset.csv...
+Initial dataset shape: (1470, 35)
+Checking for missing values...
+0
+Checking for duplicate rows...
+0
+Saving data to results/experiment_1/run_20250606_132749/baseline/ibm/01_ibm_acquired_data.csv...
+--- Finished Step 1: Data Loading ---
+Finished with exit code: 0
+
+Executing: python /Users/baueteeling/Library/CloudStorage/OneDrive-Personal/ONEDRIVE/STUDIE/THESIS/AttritionMLOps/scripts/02a_preprocessorIBM.py --input_file results/experiment_1/run_20250606_132749/baseline/ibm/01_ibm_acquired_data.csv --output_file results/experiment_1/run_20250606_132749/baseline/ibm/02_ibm_preprocessed_data.csv
+--- Starting Step 2: Pre-processing IBM dataset ---
+Input file: results/experiment_1/run_20250606_132749/baseline/ibm/01_ibm_acquired_data.csv
+Output file: results/experiment_1/run_20250606_132749/baseline/ibm/02_ibm_preprocessed_data.csv
+Preprocessor artifact path: artifacts/IBM_preprocessor.pkl
+Loading data from results/experiment_1/run_20250606_132749/baseline/ibm/01_ibm_acquired_data.csv...
+Removed columns: ['StandardHours', 'Over18', 'EmployeeCount', 'JobLevel']
+Replaced 'Research & Development' with 'Other' in 'Department' column.
+Numerical features (23): ['Age', 'DailyRate', 'DistanceFromHome', 'Education', 'EmployeeNumber', 'EnvironmentSatisfaction', 'HourlyRate', 'JobInvolvement', 'JobSatisfaction', 'MonthlyIncome', 'MonthlyRate', 'NumCompaniesWorked', 'PercentSalaryHike', 'PerformanceRating', 'RelationshipSatisfaction', 'StockOptionLevel', 'TotalWorkingYears', 'TrainingTimesLastYear', 'WorkLifeBalance', 'YearsAtCompany', 'YearsInCurrentRole', 'YearsSinceLastPromotion', 'YearsWithCurrManager']
+Categorical features (7): ['BusinessTravel', 'Department', 'EducationField', 'Gender', 'JobRole', 'MaritalStatus', 'OverTime']
+Checking for missing values... 0
+Categorized 'MonthlyIncome' into 10 bins (1-10).
+Saving data to results/experiment_1/run_20250606_132749/baseline/ibm/02_ibm_preprocessed_data.csv...
+Processed data shape: (1470, 30)
+Processed data saved to: results/experiment_1/run_20250606_132749/baseline/ibm/02_ibm_preprocessed_data.csv
+Saving data to results/experiment_1/run_20250606_132749/baseline/ibm/02_ibm_preprocessed_data.csv...
+Final processed data saved to: results/experiment_1/run_20250606_132749/baseline/ibm/02_ibm_preprocessed_data.csv
+--- Finished Step 2: Pre-processing ---
+Finished with exit code: 0
+
+Executing: python /Users/baueteeling/Library/CloudStorage/OneDrive-Personal/ONEDRIVE/STUDIE/THESIS/AttritionMLOps/scripts/03_feature_engineer.py --input_file results/experiment_1/run_20250606_132749/baseline/ibm/02_ibm_preprocessed_data.csv --output_file results/experiment_1/run_20250606_132749/baseline/ibm/03_ibm_engineered_features.csv --feature_selector_path results/experiment_1/run_20250606_132749/baseline/ibm/artifacts/feature_selector.pkl --expected_cols_path results/experiment_1/run_20250606_132749/baseline/ibm/artifacts/expected_cols.json
+--- Starting Step 3: Feature Engineering ---
+Loading data from results/experiment_1/run_20250606_132749/baseline/ibm/02_ibm_preprocessed_data.csv...
+One-hot encoding categorical columns: ['BusinessTravel', 'Department', 'EducationField', 'Gender', 'JobRole', 'MaritalStatus', 'OverTime']
+Shape after one-hot encoding: (1470, 51)
+Handling column standardization. Training mode for expected_cols.json: True.
+Current feature columns (post-OHE) saved to results/experiment_1/run_20250606_132749/baseline/ibm/artifacts/expected_cols.json.
+Shape after handle_missing_columns: (1470, 51)
+Creating new features...
+PCA explained variance ratio: [0.16514009 0.09504201 0.07151429]
+Shape after create_new_features: (1470, 56)
+Saving data to results/experiment_1/run_20250606_132749/baseline/ibm/03_ibm_engineered_features.csv...
+Engineered data shape: (1470, 57)
+--- Finished Step 3: Feature Engineering ---
+Finished with exit code: 0
+
+Executing: python /Users/baueteeling/Library/CloudStorage/OneDrive-Personal/ONEDRIVE/STUDIE/THESIS/AttritionMLOps/scripts/04_model_trainer.py --input_file results/experiment_1/run_20250606_132749/baseline/ibm/03_ibm_engineered_features.csv --output_dir results/experiment_1/run_20250606_132749/baseline/ibm/artifacts
+Loading data from: results/experiment_1/run_20250606_132749/baseline/ibm/03_ibm_engineered_features.csv
+Saving artifacts to: results/experiment_1/run_20250606_132749/baseline/ibm/artifacts
+Calculated scale_pos_weight: 5.211267605633803
+
+Applying SMOTE to balance classes in training data...
+Original class distribution in training data: [998 192]
+Class distribution after SMOTE: [998 998]
+Fitting 10 folds for each of 100 candidates, totalling 1000 fits
+/Users/baueteeling/Library/CloudStorage/OneDrive-Personal/ONEDRIVE/STUDIE/THESIS/AttritionMLOps/.venv/lib/python3.11/site-packages/xgboost/sklearn.py:1395: UserWarning: `use_label_encoder` is deprecated in 1.7.0.
+  warnings.warn("`use_label_encoder` is deprecated in 1.7.0.")
+/Users/baueteeling/Library/CloudStorage/OneDrive-Personal/ONEDRIVE/STUDIE/THESIS/AttritionMLOps/.venv/lib/python3.11/site-packages/xgboost/sklearn.py:835: UserWarning: `early_stopping_rounds` in `fit` method is deprecated for better compatibility with scikit-learn, use `early_stopping_rounds` in constructor or`set_params` instead.
+  warnings.warn(
+Best hyperparameters found:
+{'colsample_bytree': 0.677995742135993, 'gamma': 0.8942172628959257, 'learning_rate': 0.04862451948989317, 'max_depth': 4, 'min_child_weight': 9, 'n_estimators': 893, 'reg_alpha': 0.7994103989090426, 'reg_lambda': 0.6279003894909078, 'subsample': 0.540879515974436}
+Best CV F1: 0.5117
+
+F1 scores for each fold with best hyperparameters:
+  fold_1: Test F1 = 0.4242, Train F1 = 0.8571
+  fold_2: Test F1 = 0.5000, Train F1 = 0.8653
+  fold_3: Test F1 = 0.4706, Train F1 = 0.8488
+  fold_4: Test F1 = 0.7429, Train F1 = 0.8529
+  fold_5: Test F1 = 0.6667, Train F1 = 0.8504
+  fold_6: Test F1 = 0.5000, Train F1 = 0.8621
+  fold_7: Test F1 = 0.7059, Train F1 = 0.8563
+  fold_8: Test F1 = 0.3200, Train F1 = 0.8580
+  fold_9: Test F1 = 0.3871, Train F1 = 0.8513
+  fold_10: Test F1 = 0.4000, Train F1 = 0.8378
+
+Calculating performance metrics across data splits...
+Training metrics:
+  Accuracy:  0.8580
+  Precision: 0.8485
+  Recall:    0.1458
+  F1-Score:  0.2489
+  AUC:       0.8322
+Validation metrics:
+  Accuracy:  0.8421
+  Precision: 0.5000
+  Recall:    0.0476
+  F1-Score:  0.0870
+  AUC:       0.6565
+Train+Validation metrics:
+  Accuracy:  0.8564
+  Precision: 0.8286
+  Recall:    0.1362
+  F1-Score:  0.2339
+  AUC:       0.8160
+Test (hold-out) metrics:
+  Accuracy:  0.8367
+  Precision: 0.0000
+  Recall:    0.0000
+  F1-Score:  0.0000
+  AUC:       0.6839
+
+Training and validation metrics saved to results/experiment_1/run_20250606_132749/baseline/ibm/artifacts/training_metrics.json
+Model training complete. Artifacts saved under 'results/experiment_1/run_20250606_132749/baseline/ibm/artifacts'.
+Finished with exit code: 0
+
+Executing: python /Users/baueteeling/Library/CloudStorage/OneDrive-Personal/ONEDRIVE/STUDIE/THESIS/AttritionMLOps/scripts/05_model_evaluator.py --input_file results/experiment_1/run_20250606_132749/baseline/ibm/03_ibm_engineered_features.csv --model_path results/experiment_1/run_20250606_132749/baseline/ibm/artifacts/model.pkl --output_dir results/experiment_1/run_20250606_132749/baseline/ibm
+Loading data from: results/experiment_1/run_20250606_132749/baseline/ibm/03_ibm_engineered_features.csv
+Splitting data into train/test to isolate the hold-out test set...
+Test set shape: X_test (147, 55), y_test (147,)
+Loading scaler from: results/experiment_1/run_20250606_132749/baseline/ibm/artifacts/scaler.pkl
+Applying scaling to numeric columns: ['Age', 'DistanceFromHome', 'EnvironmentSatisfaction', 'JobInvolvement', 'JobLevel', 'JobSatisfaction', 'MonthlyIncome', 'PerformanceRating', 'TotalWorkingYears', 'WorkLifeBalance', 'YearsAtCompany', 'YearsInCurrentRole', 'YearsSinceLastPromotion', 'StagnationScore', 'TenureRatio', 'PCA1', 'PCA2', 'PCA3']
+Traceback (most recent call last):
+  File "/Users/baueteeling/Library/CloudStorage/OneDrive-Personal/ONEDRIVE/STUDIE/THESIS/AttritionMLOps/scripts/05_model_evaluator.py", line 129, in <module>
+    X_test_scaled[numeric_cols] = scaler.transform(X_test[numeric_cols])
+                                                   ~~~~~~^^^^^^^^^^^^^^
+  File "/Users/baueteeling/Library/CloudStorage/OneDrive-Personal/ONEDRIVE/STUDIE/THESIS/AttritionMLOps/.venv/lib/python3.11/site-packages/pandas/core/frame.py", line 3767, in __getitem__
+    indexer = self.columns._get_indexer_strict(key, "columns")[1]
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/baueteeling/Library/CloudStorage/OneDrive-Personal/ONEDRIVE/STUDIE/THESIS/AttritionMLOps/.venv/lib/python3.11/site-packages/pandas/core/indexes/base.py", line 5877, in _get_indexer_strict
+    self._raise_if_missing(keyarr, indexer, axis_name)
+  File "/Users/baueteeling/Library/CloudStorage/OneDrive-Personal/ONEDRIVE/STUDIE/THESIS/AttritionMLOps/.venv/lib/python3.11/site-packages/pandas/core/indexes/base.py", line 5941, in _raise_if_missing
+    raise KeyError(f"{not_found} not in index")
+KeyError: "['JobLevel'] not in index"
+Finished with exit code: 1
+
+
+PIPELINE FAILED: Script python /Users/baueteeling/Library/CloudStorage/OneDrive-Personal/ONEDRIVE/STUDIE/THESIS/AttritionMLOps/scripts/05_model_evaluator.py --input_file results/experiment_1/run_20250606_132749/baseline/ibm/03_ibm_engineered_features.csv --model_path results/experiment_1/run_20250606_132749/baseline/ibm/artifacts/model.pkl --output_dir results/experiment_1/run_20250606_132749/baseline/ibm failed with exit code 1. Check log: results/experiment_1/run_20250606_132749/baseline/ibm/pipeline_log.txt
+
+Pipeline finished at 2025-06-06T13:30:36.404715
+Total pipeline duration: 0 days 00:02:47.081749
+Resource usage logged to: results/experiment_1/run_20250606_132749/baseline/ibm/resource_usage.csv

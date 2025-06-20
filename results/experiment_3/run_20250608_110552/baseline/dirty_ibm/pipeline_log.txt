@@ -1,0 +1,11 @@
+Starting Baseline Pipeline for source: dirty_ibm at 2025-06-08T11:05:52.837126
+Output Directory: results/experiment_3/run_20250608_110552/baseline/dirty_ibm
+Evaluate Only: True
+Reference Artifacts Directory: results/experiment_1/latest_artifacts/baseline/ibm
+
+
+PIPELINE FAILED: name 'cmd_acquire' is not defined
+
+Pipeline finished at 2025-06-08T11:05:52.838183
+Total pipeline duration: 0 days 00:00:00.001057
+Resource usage logged to: results/experiment_3/run_20250608_110552/baseline/dirty_ibm/resource_usage.csv

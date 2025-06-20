@@ -1,0 +1,53 @@
+{
+  "experiment_date": "2025-06-06T10:05:29.862452",
+  "timestamp": "20250606_100529",
+  "datasets": {
+    "ibm": "data/ibm_dataset.csv"
+  },
+  "baseline": {
+    "ibm": {
+      "pipeline_type": "baseline",
+      "acquired_data_path": "results/experiment_1/run_20250606_100529/baseline/ibm/01_ibm_acquired_data.csv",
+      "preprocessed_data_path": "results/experiment_1/run_20250606_100529/baseline/ibm/02_ibm_preprocessed_data.csv",
+      "engineered_data_path": "results/experiment_1/run_20250606_100529/baseline/ibm/03_ibm_engineered_features.csv",
+      "feature_selector_path": "results/experiment_1/run_20250606_100529/baseline/ibm/artifacts/feature_selector.pkl",
+      "expected_cols_path": "results/experiment_1/run_20250606_100529/baseline/ibm/artifacts/expected_cols.json",
+      "error": "Script python /Users/baueteeling/Library/CloudStorage/OneDrive-Personal/ONEDRIVE/STUDIE/THESIS/AttritionMLOps/scripts/04_model_trainer.py --input_file results/experiment_1/run_20250606_100529/baseline/ibm/03_ibm_engineered_features.csv --output_dir results/experiment_1/run_20250606_100529/baseline/ibm/artifacts failed with exit code 1. Check log: results/experiment_1/run_20250606_100529/baseline/ibm/pipeline_log.txt",
+      "pipeline_duration_seconds": 5.594184,
+      "resource_usage_summary": {
+        "avg_cpu_percent_system": 38.75,
+        "max_cpu_percent_system": 77.5,
+        "avg_virtual_memory_percent_system": 75.2,
+        "max_virtual_memory_percent_system": 75.4,
+        "log_file": "resource_usage.csv"
+      }
+    }
+  },
+  "mlops": {
+    "ibm": {
+      "pipeline_type": "mlops",
+      "acquired_data_path": "results/experiment_1/run_20250606_100529/mlops/ibm/01_ibm_acquired_data.csv",
+      "drift_status": "skipped_detect_drift_false",
+      "preprocessed_data_path": "results/experiment_1/run_20250606_100529/mlops/ibm/02_ibm_preprocessed_data.csv",
+      "engineered_data_path": "results/experiment_1/run_20250606_100529/mlops/ibm/03_ibm_engineered_features.csv",
+      "feature_selector_path_used": "results/experiment_1/run_20250606_100529/mlops/ibm/artifacts/feature_selector.pkl",
+      "expected_cols_path_used": "results/experiment_1/run_20250606_100529/mlops/ibm/artifacts/expected_cols.json",
+      "error": "Script python /Users/baueteeling/Library/CloudStorage/OneDrive-Personal/ONEDRIVE/STUDIE/THESIS/AttritionMLOps/scripts/04_model_trainer.py --input_file results/experiment_1/run_20250606_100529/mlops/ibm/03_ibm_engineered_features.csv --output_dir results/experiment_1/run_20250606_100529/mlops/ibm/artifacts failed with exit code 1. Check log: results/experiment_1/run_20250606_100529/mlops/ibm/pipeline_log.txt",
+      "pipeline_duration_seconds": 2.789024,
+      "resource_usage_summary": {
+        "avg_cpu_percent_system": 0.0,
+        "max_cpu_percent_system": 0.0,
+        "avg_virtual_memory_percent_system": 73.7,
+        "max_virtual_memory_percent_system": 73.7,
+        "log_file": "resource_usage.csv"
+      }
+    }
+  },
+  "comparison": {
+    "ibm": {
+      "accuracy_diff": NaN,
+      "f1_diff": NaN,
+      "roc_auc_diff": NaN
+    }
+  }
+}

@@ -1,0 +1,190 @@
+Starting MLOps Pipeline for source: ibm at 2025-06-06T10:58:35.122255
+Output Directory: results/experiment_1/run_20250606_105559/mlops/ibm
+Evaluate Only: False
+Detect Drift: False
+Reference Data Path (for drift): None
+Reference Artifacts Directory: None
+Retrain on Drift: True
+
+Executing: python /Users/baueteeling/Library/CloudStorage/OneDrive-Personal/ONEDRIVE/STUDIE/THESIS/AttritionMLOps/scripts/01_data_acquirer.py --input_file /Users/baueteeling/Library/CloudStorage/OneDrive-Personal/ONEDRIVE/STUDIE/THESIS/AttritionMLOps/scripts/../data/ibm_dataset.csv --output_file results/experiment_1/run_20250606_105559/mlops/ibm/01_ibm_acquired_data.csv
+--- Starting Step 1: Data Loading ---
+Loading data from /Users/baueteeling/Library/CloudStorage/OneDrive-Personal/ONEDRIVE/STUDIE/THESIS/AttritionMLOps/scripts/../data/ibm_dataset.csv...
+Initial dataset shape: (1470, 35)
+Checking for missing values...
+0
+Checking for duplicate rows...
+0
+Saving data to results/experiment_1/run_20250606_105559/mlops/ibm/01_ibm_acquired_data.csv...
+--- Finished Step 1: Data Loading ---
+Finished with exit code: 0
+
+Executing: python /Users/baueteeling/Library/CloudStorage/OneDrive-Personal/ONEDRIVE/STUDIE/THESIS/AttritionMLOps/scripts/02a_preprocessorIBM.py --input_file results/experiment_1/run_20250606_105559/mlops/ibm/01_ibm_acquired_data.csv --output_file results/experiment_1/run_20250606_105559/mlops/ibm/02_ibm_preprocessed_data.csv
+--- Starting Step 2: Pre-processing IBM dataset ---
+Input file: results/experiment_1/run_20250606_105559/mlops/ibm/01_ibm_acquired_data.csv
+Output file: results/experiment_1/run_20250606_105559/mlops/ibm/02_ibm_preprocessed_data.csv
+Preprocessor artifact path: artifacts/IBM_preprocessor.pkl
+Loading data from results/experiment_1/run_20250606_105559/mlops/ibm/01_ibm_acquired_data.csv...
+Removed columns: ['YearsWithCurrManager', 'TrainingTimesLastYear', 'StockOptionLevel', 'StandardHours', 'RelationshipSatisfaction', 'PercentSalaryHike', 'Over18', 'NumCompaniesWorked', 'MonthlyRate', 'HourlyRate', 'EmployeeCount', 'EducationField', 'Education', 'DailyRate', 'BusinessTravel', 'JobRole']
+Replaced 'Research & Development' with 'Other' in 'Department' column.
+Numerical features (14): ['Age', 'DistanceFromHome', 'EmployeeNumber', 'EnvironmentSatisfaction', 'JobInvolvement', 'JobLevel', 'JobSatisfaction', 'MonthlyIncome', 'PerformanceRating', 'TotalWorkingYears', 'WorkLifeBalance', 'YearsAtCompany', 'YearsInCurrentRole', 'YearsSinceLastPromotion']
+Categorical features (4): ['Department', 'Gender', 'MaritalStatus', 'OverTime']
+Checking for missing values... 0
+Categorized 'MonthlyIncome' into 10 bins (1-10).
+Saving data to results/experiment_1/run_20250606_105559/mlops/ibm/02_ibm_preprocessed_data.csv...
+Processed data shape: (1470, 18)
+Processed data saved to: results/experiment_1/run_20250606_105559/mlops/ibm/02_ibm_preprocessed_data.csv
+Saving data to results/experiment_1/run_20250606_105559/mlops/ibm/02_ibm_preprocessed_data.csv...
+Final processed data saved to: results/experiment_1/run_20250606_105559/mlops/ibm/02_ibm_preprocessed_data.csv
+--- Finished Step 2: Pre-processing ---
+Finished with exit code: 0
+
+Executing: python /Users/baueteeling/Library/CloudStorage/OneDrive-Personal/ONEDRIVE/STUDIE/THESIS/AttritionMLOps/scripts/03_feature_engineer.py --input_file results/experiment_1/run_20250606_105559/mlops/ibm/02_ibm_preprocessed_data.csv --output_file results/experiment_1/run_20250606_105559/mlops/ibm/03_ibm_engineered_features.csv --feature_selector_path results/experiment_1/run_20250606_105559/mlops/ibm/artifacts/feature_selector.pkl --expected_cols_path results/experiment_1/run_20250606_105559/mlops/ibm/artifacts/expected_cols.json
+--- Starting Step 3: Feature Engineering ---
+Loading data from results/experiment_1/run_20250606_105559/mlops/ibm/02_ibm_preprocessed_data.csv...
+One-hot encoding categorical columns: ['Department', 'Gender', 'MaritalStatus', 'OverTime']
+Shape after one-hot encoding: (1470, 24)
+Handling column standardization. Training mode for expected_cols.json: True.
+Current feature columns (post-OHE) saved to results/experiment_1/run_20250606_105559/mlops/ibm/artifacts/expected_cols.json.
+Shape after handle_missing_columns: (1470, 24)
+Creating new features...
+PCA explained variance ratio: [0.25968146 0.12560435 0.0770404 ]
+Shape after create_new_features: (1470, 29)
+Saving data to results/experiment_1/run_20250606_105559/mlops/ibm/03_ibm_engineered_features.csv...
+Engineered data shape: (1470, 30)
+--- Finished Step 3: Feature Engineering ---
+Finished with exit code: 0
+
+Executing: python /Users/baueteeling/Library/CloudStorage/OneDrive-Personal/ONEDRIVE/STUDIE/THESIS/AttritionMLOps/scripts/04_model_trainer.py --input_file results/experiment_1/run_20250606_105559/mlops/ibm/03_ibm_engineered_features.csv --output_dir results/experiment_1/run_20250606_105559/mlops/ibm/artifacts
+Loading data from: results/experiment_1/run_20250606_105559/mlops/ibm/03_ibm_engineered_features.csv
+Saving artifacts to: results/experiment_1/run_20250606_105559/mlops/ibm/artifacts
+Calculated scale_pos_weight: 5.211267605633803
+
+Applying SMOTE to balance classes in training data...
+Original class distribution in training data: [998 192]
+Class distribution after SMOTE: [998 998]
+Fitting 5 folds for each of 300 candidates, totalling 1500 fits
+/Users/baueteeling/Library/CloudStorage/OneDrive-Personal/ONEDRIVE/STUDIE/THESIS/AttritionMLOps/.venv/lib/python3.11/site-packages/xgboost/sklearn.py:1395: UserWarning: `use_label_encoder` is deprecated in 1.7.0.
+  warnings.warn("`use_label_encoder` is deprecated in 1.7.0.")
+/Users/baueteeling/Library/CloudStorage/OneDrive-Personal/ONEDRIVE/STUDIE/THESIS/AttritionMLOps/.venv/lib/python3.11/site-packages/xgboost/sklearn.py:835: UserWarning: `early_stopping_rounds` in `fit` method is deprecated for better compatibility with scikit-learn, use `early_stopping_rounds` in constructor or`set_params` instead.
+  warnings.warn(
+Best hyperparameters found:
+{'colsample_bytree': 0.6708372509484604, 'gamma': 0.3809095255109872, 'learning_rate': 0.11389653057670106, 'max_depth': 3, 'min_child_weight': 9, 'n_estimators': 548, 'reg_alpha': 0.30552431065802355, 'reg_lambda': 0.3969815170742834, 'subsample': 0.7236012702524178}
+Best CV F1: 0.4900
+
+Calculating performance metrics across data splits...
+Training metrics:
+  Accuracy:  0.8655
+  Precision: 0.8200
+  Recall:    0.2135
+  F1-Score:  0.3388
+  AUC:       0.8642
+Validation metrics:
+  Accuracy:  0.8496
+  Precision: 0.6667
+  Recall:    0.0952
+  F1-Score:  0.1667
+  AUC:       0.6450
+Train+Validation metrics:
+  Accuracy:  0.8639
+  Precision: 0.8113
+  Recall:    0.2019
+  F1-Score:  0.3233
+  AUC:       0.8431
+Test (hold-out) metrics:
+  Accuracy:  0.8435
+  Precision: 1.0000
+  Recall:    0.0417
+  F1-Score:  0.0800
+  AUC:       0.7309
+
+Training and validation metrics saved to results/experiment_1/run_20250606_105559/mlops/ibm/artifacts/training_metrics.json
+Model training complete. Artifacts saved under 'results/experiment_1/run_20250606_105559/mlops/ibm/artifacts'.
+Finished with exit code: 0
+
+Executing: python /Users/baueteeling/Library/CloudStorage/OneDrive-Personal/ONEDRIVE/STUDIE/THESIS/AttritionMLOps/scripts/05_model_evaluator.py --input_file results/experiment_1/run_20250606_105559/mlops/ibm/03_ibm_engineered_features.csv --model_path results/experiment_1/run_20250606_105559/mlops/ibm/artifacts/model.pkl --output_dir results/experiment_1/run_20250606_105559/mlops/ibm
+Loading data from: results/experiment_1/run_20250606_105559/mlops/ibm/03_ibm_engineered_features.csv
+Splitting data into train/test to isolate the hold-out test set...
+Test set shape: X_test (147, 28), y_test (147,)
+Loading scaler from: results/experiment_1/run_20250606_105559/mlops/ibm/artifacts/scaler.pkl
+Applying scaling to numeric columns: ['Age', 'DistanceFromHome', 'EnvironmentSatisfaction', 'JobInvolvement', 'JobLevel', 'JobSatisfaction', 'MonthlyIncome', 'PerformanceRating', 'TotalWorkingYears', 'WorkLifeBalance', 'YearsAtCompany', 'YearsInCurrentRole', 'YearsSinceLastPromotion', 'StagnationScore', 'TenureRatio', 'PCA1', 'PCA2', 'PCA3']
+Loading model from: results/experiment_1/run_20250606_105559/mlops/ibm/artifacts/model.pkl
+Computing point estimates...
+Point estimates on the hold-out test set:
+  AUC:       0.7105
+  Accuracy:  0.8435
+  Precision: 0.5714
+  Recall:    0.1667
+  F1‐Score:  0.2581
+
+Computing fairness metrics...
+  Demographic Parity Difference (Gender): 0.0266
+  Equalized Odds Difference (Gender):     0.2667
+  Demographic Parity Difference (Age Binned): 0.2000
+  Equalized Odds Difference (Age Binned):     0.4286
+
+Computing bootstrap confidence intervals...
+
+95% Bootstrap confidence intervals (n_boot=1000):
+  AUC CI:       [0.5957, 0.8287]
+  Accuracy CI:  [0.7823, 0.8980]
+  Precision CI: [0.2000, 1.0000]
+  Recall CI:    [0.0400, 0.3449]
+  F1‐Score CI:  [0.0690, 0.4548]
+
+Evaluation summary saved to: results/experiment_1/run_20250606_105559/mlops/ibm/evaluation_summary.json
+
+Model Performance Metrics:
++-----------+------------------+----------------+----------------+
+| Metric    |   Point Estimate |   95% CI Lower |   95% CI Upper |
++===========+==================+================+================+
+| AUC       |           0.7105 |         0.5957 |         0.8287 |
++-----------+------------------+----------------+----------------+
+| Accuracy  |           0.8435 |         0.7823 |         0.898  |
++-----------+------------------+----------------+----------------+
+| Precision |           0.5714 |         0.2    |         1      |
++-----------+------------------+----------------+----------------+
+| Recall    |           0.1667 |         0.04   |         0.3449 |
++-----------+------------------+----------------+----------------+
+| F1-Score  |           0.2581 |         0.069  |         0.4548 |
++-----------+------------------+----------------+----------------+
+
+Fairness Metrics:
++---------------------+-------------------------------+---------+
+| Sensitive Feature   | Metric                        |   Value |
++=====================+===============================+=========+
+| Gender              | Demographic Parity Difference |  0.0266 |
++---------------------+-------------------------------+---------+
+| Gender              | Equalized Odds Difference     |  0.2667 |
++---------------------+-------------------------------+---------+
+| Age (Binned)        | Demographic Parity Difference |  0.2    |
++---------------------+-------------------------------+---------+
+| Age (Binned)        | Equalized Odds Difference     |  0.4286 |
++---------------------+-------------------------------+---------+
+--- Finished Step 5: Model Evaluation ---
+Finished with exit code: 0
+
+Executing: python /Users/baueteeling/Library/CloudStorage/OneDrive-Personal/ONEDRIVE/STUDIE/THESIS/AttritionMLOps/scripts/../monitoring/performance_tracker.py --model_path results/experiment_1/run_20250606_105559/mlops/ibm/artifacts/model.pkl --reference_data results/experiment_1/run_20250606_105559/mlops/ibm/03_ibm_engineered_features.csv --output_dir results/experiment_1/run_20250606_105559/mlops/ibm
+Tracking model performance on results/experiment_1/run_20250606_105559/mlops/ibm/03_ibm_engineered_features.csv
+Loading object from results/experiment_1/run_20250606_105559/mlops/ibm/artifacts/model.pkl...
+Loading data from results/experiment_1/run_20250606_105559/mlops/ibm/03_ibm_engineered_features.csv...
+Traceback (most recent call last):
+  File "/Users/baueteeling/Library/CloudStorage/OneDrive-Personal/ONEDRIVE/STUDIE/THESIS/AttritionMLOps/scripts/../monitoring/performance_tracker.py", line 103, in <module>
+    track_model_performance(args.model_path, args.reference_data, args.output_dir, args.threshold)
+  File "/Users/baueteeling/Library/CloudStorage/OneDrive-Personal/ONEDRIVE/STUDIE/THESIS/AttritionMLOps/scripts/../monitoring/performance_tracker.py", line 42, in track_model_performance
+    y_pred_proba = model.predict_proba(X)[:, 1]
+                   ^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/baueteeling/Library/CloudStorage/OneDrive-Personal/ONEDRIVE/STUDIE/THESIS/AttritionMLOps/.venv/lib/python3.11/site-packages/xgboost/sklearn.py", line 1606, in predict_proba
+    class_probs = super().predict(
+                  ^^^^^^^^^^^^^^^^
+  File "/Users/baueteeling/Library/CloudStorage/OneDrive-Personal/ONEDRIVE/STUDIE/THESIS/AttritionMLOps/.venv/lib/python3.11/site-packages/xgboost/sklearn.py", line 1114, in predict
+    predts = self.get_booster().inplace_predict(
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/baueteeling/Library/CloudStorage/OneDrive-Personal/ONEDRIVE/STUDIE/THESIS/AttritionMLOps/.venv/lib/python3.11/site-packages/xgboost/core.py", line 2269, in inplace_predict
+    raise ValueError(
+ValueError: Feature shape mismatch, expected: 28, got 29
+Finished with exit code: 1
+
+
+Pipeline finished at 2025-06-06T11:01:21.617255
+Total pipeline duration: 0 days 00:02:46.495000
+Resource usage logged to: results/experiment_1/run_20250606_105559/mlops/ibm/resource_usage.csv

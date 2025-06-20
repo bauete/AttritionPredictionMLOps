@@ -1,0 +1,97 @@
+Starting Baseline Pipeline for source: dirty_ibm at 2025-06-04T18:28:22.319078
+Output Directory: results/experiment_3/run_20250604_182822/baseline/dirty_ibm
+Evaluate Only: True
+Reference Artifacts Directory: results/experiment_1/latest_artifacts/baseline/ibm
+
+Executing: python /Users/baueteeling/Library/CloudStorage/OneDrive-Personal/ONEDRIVE/STUDIE/THESIS/AttritionMLOps/scripts/01_data_acquirer.py --input_file /Users/baueteeling/Library/CloudStorage/OneDrive-Personal/ONEDRIVE/STUDIE/THESIS/AttritionMLOps/scripts/../data/ibm_dataset_dirty.csv --output_file results/experiment_3/run_20250604_182822/baseline/dirty_ibm/01_dirty_ibm_acquired_data.csv
+--- Starting Step 1: Data Loading ---
+Loading data from /Users/baueteeling/Library/CloudStorage/OneDrive-Personal/ONEDRIVE/STUDIE/THESIS/AttritionMLOps/scripts/../data/ibm_dataset_dirty.csv...
+Initial dataset shape: (1514, 35)
+Checking for missing values...
+585
+Checking for duplicate rows...
+1
+Saving data to results/experiment_3/run_20250604_182822/baseline/dirty_ibm/01_dirty_ibm_acquired_data.csv...
+--- Finished Step 1: Data Loading ---
+Finished with exit code: 0
+
+Executing: python /Users/baueteeling/Library/CloudStorage/OneDrive-Personal/ONEDRIVE/STUDIE/THESIS/AttritionMLOps/scripts/02a_preprocessorIBM.py --input_file results/experiment_3/run_20250604_182822/baseline/dirty_ibm/01_dirty_ibm_acquired_data.csv --output_file results/experiment_3/run_20250604_182822/baseline/dirty_ibm/02_dirty_ibm_preprocessed_data.csv
+--- Starting Step 2: Pre-processing IBM dataset ---
+Input file: results/experiment_3/run_20250604_182822/baseline/dirty_ibm/01_dirty_ibm_acquired_data.csv
+Output file: results/experiment_3/run_20250604_182822/baseline/dirty_ibm/02_dirty_ibm_preprocessed_data.csv
+Preprocessor artifact path: artifacts/IBM_preprocessor.pkl
+Loading data from results/experiment_3/run_20250604_182822/baseline/dirty_ibm/01_dirty_ibm_acquired_data.csv...
+Removed columns: ['YearsWithCurrManager', 'TrainingTimesLastYear', 'StockOptionLevel', 'StandardHours', 'RelationshipSatisfaction', 'PercentSalaryHike', 'Over18', 'NumCompaniesWorked', 'MonthlyRate', 'HourlyRate', 'EmployeeCount', 'EducationField', 'Education', 'DailyRate', 'BusinessTravel', 'JobRole']
+Replaced 'Research & Development' with 'Other' in 'Department' column.
+Numerical features (13): ['Age', 'DistanceFromHome', 'EmployeeNumber', 'EnvironmentSatisfaction', 'JobInvolvement', 'JobLevel', 'JobSatisfaction', 'PerformanceRating', 'TotalWorkingYears', 'WorkLifeBalance', 'YearsAtCompany', 'YearsInCurrentRole', 'YearsSinceLastPromotion']
+Categorical features (5): ['Department', 'Gender', 'MaritalStatus', 'MonthlyIncome', 'OverTime']
+Checking for missing values... 585
+Filled 0 missing values in 'EnvironmentSatisfaction' with median: 3.0
+Filled 0 missing values in 'JobSatisfaction' with median: 3.0
+Filled 0 missing values in 'WorkLifeBalance' with median: 3.0
+Filled missing 'MonthlyIncome' with median (4968.5) before binning.
+Categorized 'MonthlyIncome' into 10 bins (1-10).
+Saving data to results/experiment_3/run_20250604_182822/baseline/dirty_ibm/02_dirty_ibm_preprocessed_data.csv...
+Processed data shape: (1514, 18)
+Processed data saved to: results/experiment_3/run_20250604_182822/baseline/dirty_ibm/02_dirty_ibm_preprocessed_data.csv
+Saving data to results/experiment_3/run_20250604_182822/baseline/dirty_ibm/02_dirty_ibm_preprocessed_data.csv...
+Final processed data saved to: results/experiment_3/run_20250604_182822/baseline/dirty_ibm/02_dirty_ibm_preprocessed_data.csv
+--- Finished Step 2: Pre-processing ---
+Finished with exit code: 0
+
+Executing: python /Users/baueteeling/Library/CloudStorage/OneDrive-Personal/ONEDRIVE/STUDIE/THESIS/AttritionMLOps/scripts/03_feature_engineer.py --input_file results/experiment_3/run_20250604_182822/baseline/dirty_ibm/02_dirty_ibm_preprocessed_data.csv --output_file results/experiment_3/run_20250604_182822/baseline/dirty_ibm/03_dirty_ibm_engineered_features.csv --feature_selector_path results/experiment_1/latest_artifacts/baseline/ibm/artifacts/feature_selector.pkl --expected_cols_path results/experiment_1/latest_artifacts/baseline/ibm/artifacts/expected_cols.json --apply_only
+--- Starting Step 3: Feature Engineering ---
+Loading data from results/experiment_3/run_20250604_182822/baseline/dirty_ibm/02_dirty_ibm_preprocessed_data.csv...
+One-hot encoding categorical columns: ['Department', 'Gender', 'MaritalStatus', 'OverTime']
+Shape after one-hot encoding: (1514, 52)
+Handling column standardization. Training mode for expected_cols.json: False.
+Expected columns (post-OHE) loaded from results/experiment_1/latest_artifacts/baseline/ibm/artifacts/expected_cols.json.
+Dropped unexpected columns: ['Department_Finance', 'Department_HR', 'Department_Hum Res', 'Department_Human Resource', 'Department_IT', 'Department_Marketing', 'Department_R&D', 'Department_R&D Lab', 'Department_ResDev', 'Department_Research and Dev', 'Department_Sale', 'Department_Sale Dept', 'Department_Sales ', 'Department_Saless', 'Gender_ fem ', 'Gender_F', 'Gender_M', 'Gender_Mal', 'Gender_female', 'MaritalStatus_DIVORCED', 'MaritalStatus_MARRIED', 'MaritalStatus_SINGLE', 'OverTime_ NO ', 'OverTime_ YES ', 'OverTime_N', 'OverTime_Y', 'OverTime_no', 'OverTime_yes'].
+Columns aligned. Original shape: (1514, 52), Aligned shape: (1514, 24).
+Shape after handle_missing_columns: (1514, 24)
+Creating new features...
+PCA explained variance ratio: [0.24489073 0.11504493 0.08224655]
+Shape after create_new_features: (1514, 29)
+Saving data to results/experiment_3/run_20250604_182822/baseline/dirty_ibm/03_dirty_ibm_engineered_features.csv...
+Engineered data shape: (1514, 30)
+--- Finished Step 3: Feature Engineering ---
+Finished with exit code: 0
+
+Executing: python /Users/baueteeling/Library/CloudStorage/OneDrive-Personal/ONEDRIVE/STUDIE/THESIS/AttritionMLOps/scripts/05_model_evaluator.py --input_file results/experiment_3/run_20250604_182822/baseline/dirty_ibm/03_dirty_ibm_engineered_features.csv --model_path results/experiment_3/run_20250604_182822/baseline/dirty_ibm/artifacts/model.pkl --output_dir results/experiment_3/run_20250604_182822/baseline/dirty_ibm
+Loading data from: results/experiment_3/run_20250604_182822/baseline/dirty_ibm/03_dirty_ibm_engineered_features.csv
+Splitting data into train/test to isolate the hold-out test set...
+Test set shape: X_test (152, 28), y_test (152,)
+Loading scaler from: results/experiment_3/run_20250604_182822/baseline/dirty_ibm/artifacts/scaler.pkl
+Applying scaling to numeric columns: ['Age', 'DistanceFromHome', 'EnvironmentSatisfaction', 'JobInvolvement', 'JobLevel', 'JobSatisfaction', 'MonthlyIncome', 'PerformanceRating', 'TotalWorkingYears', 'WorkLifeBalance', 'YearsAtCompany', 'YearsInCurrentRole', 'YearsSinceLastPromotion', 'StagnationScore', 'TenureRatio', 'PCA1', 'PCA2', 'PCA3']
+Loading model from: results/experiment_3/run_20250604_182822/baseline/dirty_ibm/artifacts/model.pkl
+Computing point estimates...
+Point estimates on the hold-out test set:
+  AUC:       0.9105
+  Accuracy:  0.8553
+  Precision: 0.5250
+  Recall:    0.8750
+  F1‐Score:  0.6563
+
+Computing fairness metrics...
+  Demographic Parity Difference (Gender): 0.0852
+  Equalized Odds Difference (Gender):     0.0956
+  Demographic Parity Difference (Age Binned): 0.4929
+  Equalized Odds Difference (Age Binned):     0.5000
+
+Computing bootstrap confidence intervals...
+
+95% Bootstrap confidence intervals (n_boot=1000):
+  AUC CI:       [0.8581, 0.9508]
+  Accuracy CI:  [0.7961, 0.9079]
+  Precision CI: [0.3696, 0.6757]
+  Recall CI:    [0.7332, 1.0000]
+  F1‐Score CI:  [0.5083, 0.7765]
+
+Evaluation summary saved to: results/experiment_3/run_20250604_182822/baseline/dirty_ibm/evaluation_summary.json
+--- Finished Step 5: Model Evaluation ---
+Finished with exit code: 0
+
+
+Pipeline finished at 2025-06-04T18:28:27.351277
+Total pipeline duration: 0 days 00:00:05.032199
+Resource usage logged to: results/experiment_3/run_20250604_182822/baseline/dirty_ibm/resource_usage.csv

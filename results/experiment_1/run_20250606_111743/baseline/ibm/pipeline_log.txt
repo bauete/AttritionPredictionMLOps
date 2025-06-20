@@ -1,0 +1,23 @@
+Starting Baseline Pipeline for source: ibm at 2025-06-06T11:17:43.359236
+Output Directory: results/experiment_1/run_20250606_111743/baseline/ibm
+Evaluate Only: False
+Reference Artifacts Directory: None
+
+Executing: python /Users/baueteeling/Library/CloudStorage/OneDrive-Personal/ONEDRIVE/STUDIE/THESIS/AttritionMLOps/scripts/01_data_acquirer.py --input_file /Users/baueteeling/Library/CloudStorage/OneDrive-Personal/ONEDRIVE/STUDIE/THESIS/AttritionMLOps/scripts/../data/ibm_dataset.csv --output_file results/experiment_1/run_20250606_111743/baseline/ibm/01_ibm_acquired_data.csv
+--- Starting Step 1: Data Loading ---
+Loading data from /Users/baueteeling/Library/CloudStorage/OneDrive-Personal/ONEDRIVE/STUDIE/THESIS/AttritionMLOps/scripts/../data/ibm_dataset.csv...
+Initial dataset shape: (1470, 35)
+Checking for missing values...
+0
+Checking for duplicate rows...
+0
+Saving data to results/experiment_1/run_20250606_111743/baseline/ibm/01_ibm_acquired_data.csv...
+--- Finished Step 1: Data Loading ---
+Finished with exit code: 0
+
+
+PIPELINE FAILED: name 'acquired_da' is not defined
+
+Pipeline finished at 2025-06-06T11:17:43.829030
+Total pipeline duration: 0 days 00:00:00.469794
+Resource usage logged to: results/experiment_1/run_20250606_111743/baseline/ibm/resource_usage.csv

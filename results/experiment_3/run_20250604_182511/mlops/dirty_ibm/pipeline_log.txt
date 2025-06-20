@@ -1,0 +1,47 @@
+Starting MLOps Pipeline for source: dirty_ibm at 2025-06-04T18:25:12.557133
+Output Directory: results/experiment_3/run_20250604_182511/mlops/dirty_ibm
+Evaluate Only: False
+Detect Drift: True
+Reference Data Path (for drift): data/ibm_dataset.csv
+Reference Artifacts Directory: results/experiment_1/latest_artifacts/mlops/ibm
+Retrain on Drift: True
+
+Executing: python /Users/baueteeling/Library/CloudStorage/OneDrive-Personal/ONEDRIVE/STUDIE/THESIS/AttritionMLOps/scripts/01_data_acquirer.py --input_file /Users/baueteeling/Library/CloudStorage/OneDrive-Personal/ONEDRIVE/STUDIE/THESIS/AttritionMLOps/scripts/../data/ibm_dataset_dirty.csv --output_file results/experiment_3/run_20250604_182511/mlops/dirty_ibm/01_dirty_ibm_acquired_data.csv
+--- Starting Step 1: Data Loading ---
+Loading data from /Users/baueteeling/Library/CloudStorage/OneDrive-Personal/ONEDRIVE/STUDIE/THESIS/AttritionMLOps/scripts/../data/ibm_dataset_dirty.csv...
+Traceback (most recent call last):
+  File "/Users/baueteeling/Library/CloudStorage/OneDrive-Personal/ONEDRIVE/STUDIE/THESIS/AttritionMLOps/scripts/01_data_acquirer.py", line 32, in <module>
+    main(args)
+  File "/Users/baueteeling/Library/CloudStorage/OneDrive-Personal/ONEDRIVE/STUDIE/THESIS/AttritionMLOps/scripts/01_data_acquirer.py", line 8, in main
+    df = load_data(args.input_file)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/baueteeling/Library/CloudStorage/OneDrive-Personal/ONEDRIVE/STUDIE/THESIS/AttritionMLOps/scripts/utils.py", line 8, in load_data
+    return pd.read_csv(file_path)
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/baueteeling/Library/CloudStorage/OneDrive-Personal/ONEDRIVE/STUDIE/THESIS/AttritionMLOps/.venv/lib/python3.11/site-packages/pandas/io/parsers/readers.py", line 912, in read_csv
+    return _read(filepath_or_buffer, kwds)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/baueteeling/Library/CloudStorage/OneDrive-Personal/ONEDRIVE/STUDIE/THESIS/AttritionMLOps/.venv/lib/python3.11/site-packages/pandas/io/parsers/readers.py", line 583, in _read
+    return parser.read(nrows)
+           ^^^^^^^^^^^^^^^^^^
+  File "/Users/baueteeling/Library/CloudStorage/OneDrive-Personal/ONEDRIVE/STUDIE/THESIS/AttritionMLOps/.venv/lib/python3.11/site-packages/pandas/io/parsers/readers.py", line 1704, in read
+    ) = self._engine.read(  # type: ignore[attr-defined]
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/baueteeling/Library/CloudStorage/OneDrive-Personal/ONEDRIVE/STUDIE/THESIS/AttritionMLOps/.venv/lib/python3.11/site-packages/pandas/io/parsers/c_parser_wrapper.py", line 234, in read
+    chunks = self._reader.read_low_memory(nrows)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pandas/_libs/parsers.pyx", line 814, in pandas._libs.parsers.TextReader.read_low_memory
+  File "pandas/_libs/parsers.pyx", line 875, in pandas._libs.parsers.TextReader._read_rows
+  File "pandas/_libs/parsers.pyx", line 850, in pandas._libs.parsers.TextReader._tokenize_rows
+  File "pandas/_libs/parsers.pyx", line 861, in pandas._libs.parsers.TextReader._check_tokenize_status
+  File "pandas/_libs/parsers.pyx", line 2029, in pandas._libs.parsers.raise_parser_error
+pandas.errors.ParserError: Error tokenizing data. C error: Expected 35 fields in line 22, saw 36
+
+Finished with exit code: 1
+
+
+PIPELINE FAILED: Script python /Users/baueteeling/Library/CloudStorage/OneDrive-Personal/ONEDRIVE/STUDIE/THESIS/AttritionMLOps/scripts/01_data_acquirer.py --input_file /Users/baueteeling/Library/CloudStorage/OneDrive-Personal/ONEDRIVE/STUDIE/THESIS/AttritionMLOps/scripts/../data/ibm_dataset_dirty.csv --output_file results/experiment_3/run_20250604_182511/mlops/dirty_ibm/01_dirty_ibm_acquired_data.csv failed with exit code 1. Check log: results/experiment_3/run_20250604_182511/mlops/dirty_ibm/pipeline_log.txt
+
+Pipeline finished at 2025-06-04T18:25:12.921662
+Total pipeline duration: 0 days 00:00:00.364529
+Resource usage logged to: results/experiment_3/run_20250604_182511/mlops/dirty_ibm/resource_usage.csv

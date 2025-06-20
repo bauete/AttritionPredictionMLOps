@@ -1,0 +1,171 @@
+{
+  "experiment_date": "2025-06-08T11:33:58.875422",
+  "timestamp": "20250608_113358",
+  "experiment_focus": "Dirty Dataset Comparison (Experiment 3: D3, T3, M3, C3)",
+  "datasets_provided": {
+    "ibm_raw_reference_csv": "data/ibm_dataset.csv",
+    "dirty_dataset_csv": "data/ibm_dataset_dirty.csv"
+  },
+  "baseline": {
+    "dirty_ibm": {
+      "pipeline_type": "baseline",
+      "acquired_data_path": "results/experiment_3/run_20250608_113358/baseline/dirty_ibm/01_dirty_ibm_acquired_data.csv",
+      "preprocessed_data_path": "results/experiment_3/run_20250608_113358/baseline/dirty_ibm/02_dirty_ibm_preprocessed_data.csv",
+      "engineered_data_path": "results/experiment_3/run_20250608_113358/baseline/dirty_ibm/03_dirty_ibm_engineered_features.csv",
+      "feature_selector_path": "results/experiment_1/latest_artifacts/baseline/ibm/artifacts/feature_selector.pkl",
+      "expected_cols_path": "results/experiment_1/latest_artifacts/baseline/ibm/artifacts/expected_cols.json",
+      "model_trained": false,
+      "model_path": "results/experiment_3/run_20250608_113358/baseline/dirty_ibm/artifacts",
+      "evaluation_summary_path": "results/experiment_3/run_20250608_113358/baseline/dirty_ibm/evaluation_summary.json",
+      "auc": {
+        "point_estimate": 0.8841145833333333,
+        "ci_lower": 0.8226751088246934,
+        "ci_upper": 0.9365321701199564
+      },
+      "accuracy": {
+        "point_estimate": 0.8355263157894737,
+        "ci_lower": 0.7763157894736842,
+        "ci_upper": 0.8947368421052632
+      },
+      "precision": {
+        "point_estimate": 0.4864864864864865,
+        "ci_lower": 0.3234768907563026,
+        "ci_upper": 0.6486824324324324
+      },
+      "recall": {
+        "point_estimate": 0.75,
+        "ci_lower": 0.5554597701149426,
+        "ci_upper": 0.92
+      },
+      "f1_score": {
+        "point_estimate": 0.5901639344262296,
+        "ci_lower": 0.4150943396226416,
+        "ci_upper": 0.7272727272727273
+      },
+      "fairness_metrics": {
+        "demographic_parity_difference_gender": 0.11931818181818182,
+        "equalized_odds_difference_gender": 0.1276276276276276,
+        "demographic_parity_difference_age_binned": 0.625,
+        "equalized_odds_difference_age_binned": 0.9
+      },
+      "pipeline_duration_seconds": 5.038299,
+      "resource_usage_summary": {
+        "avg_cpu_percent_system": 30.05,
+        "max_cpu_percent_system": 60.1,
+        "avg_memory_used_gb": 5.89,
+        "max_memory_used_gb": 5.97,
+        "avg_virtual_memory_percent_system": 36.8,
+        "max_virtual_memory_percent_system": 37.33,
+        "log_file": "resource_usage.csv"
+      }
+    }
+  },
+  "mlops": {
+    "dirty_ibm": {
+      "pipeline_type": "mlops",
+      "acquired_data_path": "results/experiment_3/run_20250608_113358/mlops/dirty_ibm/01_dirty_ibm_acquired_data.csv",
+      "drift_report_path": "results/experiment_3/run_20250608_113358/mlops/dirty_ibm/01b_drift_report.html",
+      "drift_status_path": "results/experiment_3/run_20250608_113358/mlops/dirty_ibm/01b_drift_status.json",
+      "drift_status": "error_status_file_not_found",
+      "preprocessed_data_path": "results/experiment_3/run_20250608_113358/mlops/dirty_ibm/02_dirty_ibm_preprocessed_data.csv",
+      "engineered_data_path": "results/experiment_3/run_20250608_113358/mlops/dirty_ibm/03_dirty_ibm_engineered_features.csv",
+      "feature_selector_path_used": "results/experiment_3/run_20250608_113358/mlops/dirty_ibm/artifacts/feature_selector.pkl",
+      "expected_cols_path_used": "results/experiment_3/run_20250608_113358/mlops/dirty_ibm/artifacts/expected_cols.json",
+      "model_trained_this_run": true,
+      "model_path": "results/experiment_3/run_20250608_113358/mlops/dirty_ibm/artifacts",
+      "evaluation_summary_path": "results/experiment_3/run_20250608_113358/mlops/dirty_ibm/evaluation_summary.json",
+      "auc": {
+        "point_estimate": 0.85546875,
+        "ci_lower": 0.7901087414493904,
+        "ci_upper": 0.9121619812473717
+      },
+      "accuracy": {
+        "point_estimate": 0.8355263157894737,
+        "ci_lower": 0.7697368421052632,
+        "ci_upper": 0.8947368421052632
+      },
+      "precision": {
+        "point_estimate": 0.4444444444444444,
+        "ci_lower": 0.1111111111111111,
+        "ci_upper": 0.8
+      },
+      "recall": {
+        "point_estimate": 0.16666666666666666,
+        "ci_lower": 0.037037037037037035,
+        "ci_upper": 0.3333333333333333
+      },
+      "f1_score": {
+        "point_estimate": 0.24242424242424243,
+        "ci_lower": 0.0625,
+        "ci_upper": 0.42435064935064926
+      },
+      "fairness_metrics": {
+        "demographic_parity_difference_gender": 0.005681818181818184,
+        "equalized_odds_difference_gender": 0.05714285714285716,
+        "demographic_parity_difference_age_binned": 0.11960132890365448,
+        "equalized_odds_difference_age_binned": 0.3
+      },
+      "performance_tracking_error": "Script python /Users/baueteeling/Library/CloudStorage/OneDrive-Personal/ONEDRIVE/STUDIE/THESIS/AttritionMLOps/scripts/../monitoring/performance_tracker.py --model_path results/experiment_3/run_20250608_113358/mlops/dirty_ibm/artifacts/model.pkl --reference_data results/experiment_3/run_20250608_113358/mlops/dirty_ibm/03_dirty_ibm_engineered_features.csv --output_dir results/experiment_3/run_20250608_113358/mlops/dirty_ibm failed with exit code 1. Check log: results/experiment_3/run_20250608_113358/mlops/dirty_ibm/pipeline_log.txt",
+      "pipeline_duration_seconds": 29.149345,
+      "detailed_metrics_per_stage": [
+        {
+          "Stage": "1. Data Acquisition",
+          "Time (s)": 0.45,
+          "CPU Peak (%)": "N/A",
+          "Memory Peak (GB)": "N/A"
+        },
+        {
+          "Stage": "1b. Drift Detection",
+          "Time (s)": 0.96,
+          "CPU Peak (%)": 82.4,
+          "Memory Peak (GB)": 5.76
+        },
+        {
+          "Stage": "2. Data Preprocessing",
+          "Time (s)": 0.4,
+          "CPU Peak (%)": "N/A",
+          "Memory Peak (GB)": "N/A"
+        },
+        {
+          "Stage": "3. Feature Engineering",
+          "Time (s)": 0.87,
+          "CPU Peak (%)": 68.7,
+          "Memory Peak (GB)": 5.74
+        },
+        {
+          "Stage": "4. Model Training",
+          "Time (s)": 22.43,
+          "CPU Peak (%)": 100.0,
+          "Memory Peak (GB)": 5.8
+        },
+        {
+          "Stage": "5. Model Evaluation",
+          "Time (s)": 3.34,
+          "CPU Peak (%)": 90.4,
+          "Memory Peak (GB)": 4.98
+        },
+        {
+          "Stage": "6. Performance Tracking",
+          "Time (s)": 0.7,
+          "CPU Peak (%)": "N/A",
+          "Memory Peak (GB)": "N/A"
+        }
+      ]
+    }
+  },
+  "comparison": {
+    "dirty_ibm": {
+      "accuracy_diff": 0.0,
+      "f1_diff": -0.3477396920019872,
+      "roc_auc_diff": -0.02864583333333326,
+      "dpd_gender_diff": -0.11363636363636365,
+      "eod_gender_diff": -0.07048477048477045,
+      "dpd_age_binned_diff": -0.5053986710963455,
+      "eod_age_binned_diff": -0.6000000000000001
+    }
+  },
+  "mlops_metrics_dirty_run": {
+    "drift_detected_in_this_run": false,
+    "pipeline_duration_seconds": null
+  }
+}

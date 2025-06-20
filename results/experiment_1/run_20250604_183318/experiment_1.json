@@ -1,0 +1,120 @@
+{
+  "experiment_date": "2025-06-04T18:33:18.209538",
+  "timestamp": "20250604_183318",
+  "datasets": {
+    "ibm": "data/ibm_dataset.csv"
+  },
+  "baseline": {
+    "ibm": {
+      "pipeline_type": "baseline",
+      "acquired_data_path": "results/experiment_1/run_20250604_183318/baseline/ibm/01_ibm_acquired_data.csv",
+      "preprocessed_data_path": "results/experiment_1/run_20250604_183318/baseline/ibm/02_ibm_preprocessed_data.csv",
+      "engineered_data_path": "results/experiment_1/run_20250604_183318/baseline/ibm/03_ibm_engineered_features.csv",
+      "feature_selector_path": "results/experiment_1/run_20250604_183318/baseline/ibm/artifacts/feature_selector.pkl",
+      "expected_cols_path": "results/experiment_1/run_20250604_183318/baseline/ibm/artifacts/expected_cols.json",
+      "model_trained": true,
+      "model_path": "results/experiment_1/run_20250604_183318/baseline/ibm/artifacts",
+      "evaluation_summary_path": "results/experiment_1/run_20250604_183318/baseline/ibm/evaluation_summary.json",
+      "auc": {
+        "point_estimate": 0.7288279132791328,
+        "ci_lower": 0.6186623369945564,
+        "ci_upper": 0.839797199267223
+      },
+      "accuracy": {
+        "point_estimate": 0.7482993197278912,
+        "ci_lower": 0.6802721088435374,
+        "ci_upper": 0.8163265306122449
+      },
+      "precision": {
+        "point_estimate": 0.34146341463414637,
+        "ci_lower": 0.21052631578947367,
+        "ci_upper": 0.48573359073359074
+      },
+      "recall": {
+        "point_estimate": 0.5833333333333334,
+        "ci_lower": 0.39982142857142877,
+        "ci_upper": 0.782608695652174
+      },
+      "f1_score": {
+        "point_estimate": 0.43076923076923085,
+        "ci_lower": 0.2857142857142857,
+        "ci_upper": 0.5671826054910631
+      },
+      "fairness_metrics": {
+        "demographic_parity_difference_gender": 0.15920303605313094,
+        "equalized_odds_difference_gender": 0.1778975741239892,
+        "demographic_parity_difference_age_binned": 0.611111111111111,
+        "equalized_odds_difference_age_binned": 0.6086956521739131
+      },
+      "pipeline_duration_seconds": 65.384205,
+      "resource_usage_summary": {
+        "avg_cpu_percent_system": 88.29,
+        "max_cpu_percent_system": 100.0,
+        "avg_virtual_memory_percent_system": 70.62,
+        "max_virtual_memory_percent_system": 72.6,
+        "log_file": "resource_usage.csv"
+      }
+    }
+  },
+  "mlops": {
+    "ibm": {
+      "pipeline_type": "mlops",
+      "acquired_data_path": "results/experiment_1/run_20250604_183318/mlops/ibm/01_ibm_acquired_data.csv",
+      "drift_status": "skipped_detect_drift_false",
+      "preprocessed_data_path": "results/experiment_1/run_20250604_183318/mlops/ibm/02_ibm_preprocessed_data.csv",
+      "engineered_data_path": "results/experiment_1/run_20250604_183318/mlops/ibm/03_ibm_engineered_features.csv",
+      "feature_selector_path_used": "results/experiment_1/run_20250604_183318/mlops/ibm/artifacts/feature_selector.pkl",
+      "expected_cols_path_used": "results/experiment_1/run_20250604_183318/mlops/ibm/artifacts/expected_cols.json",
+      "model_trained_this_run": true,
+      "model_path": "results/experiment_1/run_20250604_183318/mlops/ibm/artifacts",
+      "evaluation_summary_path": "results/experiment_1/run_20250604_183318/mlops/ibm/evaluation_summary.json",
+      "auc": {
+        "point_estimate": 0.70409891598916,
+        "ci_lower": 0.5952357149063523,
+        "ci_upper": 0.8099990922294844
+      },
+      "accuracy": {
+        "point_estimate": 0.7755102040816326,
+        "ci_lower": 0.7074829931972789,
+        "ci_upper": 0.8435374149659864
+      },
+      "precision": {
+        "point_estimate": 0.36363636363636365,
+        "ci_lower": 0.2050000000000001,
+        "ci_upper": 0.53573606271777
+      },
+      "recall": {
+        "point_estimate": 0.5,
+        "ci_lower": 0.3,
+        "ci_upper": 0.7083333333333334
+      },
+      "f1_score": {
+        "point_estimate": 0.4210526315789474,
+        "ci_lower": 0.2545454545454545,
+        "ci_upper": 0.5763571604028493
+      },
+      "fairness_metrics": {
+        "demographic_parity_difference_gender": 0.14174573055028464,
+        "equalized_odds_difference_gender": 0.1641509433962264,
+        "demographic_parity_difference_age_binned": 0.5111111111111111,
+        "equalized_odds_difference_age_binned": 0.5217391304347826
+      },
+      "performance_tracking_error": "Script python /Users/baueteeling/Library/CloudStorage/OneDrive-Personal/ONEDRIVE/STUDIE/THESIS/AttritionMLOps/scripts/../monitoring/performance_tracker.py --model_path results/experiment_1/run_20250604_183318/mlops/ibm/artifacts/model.pkl --reference_data results/experiment_1/run_20250604_183318/mlops/ibm/03_ibm_engineered_features.csv --output_dir results/experiment_1/run_20250604_183318/mlops/ibm failed with exit code 1. Check log: results/experiment_1/run_20250604_183318/mlops/ibm/pipeline_log.txt",
+      "pipeline_duration_seconds": 63.783117,
+      "resource_usage_summary": {
+        "avg_cpu_percent_system": 91.13,
+        "max_cpu_percent_system": 100.0,
+        "avg_virtual_memory_percent_system": 70.83,
+        "max_virtual_memory_percent_system": 72.6,
+        "log_file": "resource_usage.csv"
+      }
+    }
+  },
+  "comparison": {
+    "ibm": {
+      "accuracy_diff": 0.027210884353741416,
+      "f1_diff": -0.009716599190283448,
+      "roc_auc_diff": -0.0247289972899728
+    }
+  }
+}

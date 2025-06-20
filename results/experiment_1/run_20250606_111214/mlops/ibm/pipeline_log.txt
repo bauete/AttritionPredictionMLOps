@@ -1,0 +1,365 @@
+Starting MLOps Pipeline for source: ibm at 2025-06-06T11:12:21.155589
+Output Directory: results/experiment_1/run_20250606_111214/mlops/ibm
+Evaluate Only: False
+Detect Drift: False
+Reference Data Path (for drift): None
+Reference Artifacts Directory: None
+Retrain on Drift: True
+
+Executing: python /Users/baueteeling/Library/CloudStorage/OneDrive-Personal/ONEDRIVE/STUDIE/THESIS/AttritionMLOps/scripts/01_data_acquirer.py --input_file /Users/baueteeling/Library/CloudStorage/OneDrive-Personal/ONEDRIVE/STUDIE/THESIS/AttritionMLOps/scripts/../data/ibm_dataset.csv --output_file results/experiment_1/run_20250606_111214/mlops/ibm/01_ibm_acquired_data.csv
+--- Starting Step 1: Data Loading ---
+Loading data from /Users/baueteeling/Library/CloudStorage/OneDrive-Personal/ONEDRIVE/STUDIE/THESIS/AttritionMLOps/scripts/../data/ibm_dataset.csv...
+Initial dataset shape: (1470, 35)
+Checking for missing values...
+0
+Checking for duplicate rows...
+0
+Saving data to results/experiment_1/run_20250606_111214/mlops/ibm/01_ibm_acquired_data.csv...
+--- Finished Step 1: Data Loading ---
+Finished with exit code: 0
+
+Executing: python /Users/baueteeling/Library/CloudStorage/OneDrive-Personal/ONEDRIVE/STUDIE/THESIS/AttritionMLOps/scripts/02a_preprocessorIBM.py --input_file results/experiment_1/run_20250606_111214/mlops/ibm/01_ibm_acquired_data.csv --output_file results/experiment_1/run_20250606_111214/mlops/ibm/02_ibm_preprocessed_data.csv
+--- Starting Step 2: Pre-processing IBM dataset ---
+Input file: results/experiment_1/run_20250606_111214/mlops/ibm/01_ibm_acquired_data.csv
+Output file: results/experiment_1/run_20250606_111214/mlops/ibm/02_ibm_preprocessed_data.csv
+Preprocessor artifact path: artifacts/IBM_preprocessor.pkl
+Loading data from results/experiment_1/run_20250606_111214/mlops/ibm/01_ibm_acquired_data.csv...
+Removed columns: ['YearsWithCurrManager', 'TrainingTimesLastYear', 'StockOptionLevel', 'StandardHours', 'RelationshipSatisfaction', 'PercentSalaryHike', 'Over18', 'NumCompaniesWorked', 'MonthlyRate', 'HourlyRate', 'EmployeeCount', 'EducationField', 'Education', 'DailyRate', 'BusinessTravel', 'JobRole']
+Replaced 'Research & Development' with 'Other' in 'Department' column.
+Numerical features (14): ['Age', 'DistanceFromHome', 'EmployeeNumber', 'EnvironmentSatisfaction', 'JobInvolvement', 'JobLevel', 'JobSatisfaction', 'MonthlyIncome', 'PerformanceRating', 'TotalWorkingYears', 'WorkLifeBalance', 'YearsAtCompany', 'YearsInCurrentRole', 'YearsSinceLastPromotion']
+Categorical features (4): ['Department', 'Gender', 'MaritalStatus', 'OverTime']
+Checking for missing values... 0
+Categorized 'MonthlyIncome' into 10 bins (1-10).
+Saving data to results/experiment_1/run_20250606_111214/mlops/ibm/02_ibm_preprocessed_data.csv...
+Processed data shape: (1470, 18)
+Processed data saved to: results/experiment_1/run_20250606_111214/mlops/ibm/02_ibm_preprocessed_data.csv
+Saving data to results/experiment_1/run_20250606_111214/mlops/ibm/02_ibm_preprocessed_data.csv...
+Final processed data saved to: results/experiment_1/run_20250606_111214/mlops/ibm/02_ibm_preprocessed_data.csv
+--- Finished Step 2: Pre-processing ---
+Finished with exit code: 0
+
+Executing: python /Users/baueteeling/Library/CloudStorage/OneDrive-Personal/ONEDRIVE/STUDIE/THESIS/AttritionMLOps/scripts/03_feature_engineer.py --input_file results/experiment_1/run_20250606_111214/mlops/ibm/02_ibm_preprocessed_data.csv --output_file results/experiment_1/run_20250606_111214/mlops/ibm/03_ibm_engineered_features.csv --feature_selector_path results/experiment_1/run_20250606_111214/mlops/ibm/artifacts/feature_selector.pkl --expected_cols_path results/experiment_1/run_20250606_111214/mlops/ibm/artifacts/expected_cols.json
+--- Starting Step 3: Feature Engineering ---
+Loading data from results/experiment_1/run_20250606_111214/mlops/ibm/02_ibm_preprocessed_data.csv...
+One-hot encoding categorical columns: ['Department', 'Gender', 'MaritalStatus', 'OverTime']
+Shape after one-hot encoding: (1470, 24)
+Handling column standardization. Training mode for expected_cols.json: True.
+Current feature columns (post-OHE) saved to results/experiment_1/run_20250606_111214/mlops/ibm/artifacts/expected_cols.json.
+Shape after handle_missing_columns: (1470, 24)
+Creating new features...
+PCA explained variance ratio: [0.25968146 0.12560434 0.07704039]
+Shape after create_new_features: (1470, 29)
+Saving data to results/experiment_1/run_20250606_111214/mlops/ibm/03_ibm_engineered_features.csv...
+Engineered data shape: (1470, 30)
+--- Finished Step 3: Feature Engineering ---
+Finished with exit code: 0
+
+Executing: python /Users/baueteeling/Library/CloudStorage/OneDrive-Personal/ONEDRIVE/STUDIE/THESIS/AttritionMLOps/scripts/04_model_trainer.py --input_file results/experiment_1/run_20250606_111214/mlops/ibm/03_ibm_engineered_features.csv --output_dir results/experiment_1/run_20250606_111214/mlops/ibm/artifacts
+Loading data from: results/experiment_1/run_20250606_111214/mlops/ibm/03_ibm_engineered_features.csv
+Saving artifacts to: results/experiment_1/run_20250606_111214/mlops/ibm/artifacts
+Calculated scale_pos_weight: 5.211267605633803
+
+Applying SMOTE to balance classes in training data...
+Original class distribution in training data: [998 192]
+Class distribution after SMOTE: [998 998]
+Fitting 5 folds for each of 100 candidates, totalling 500 fits
+Traceback (most recent call last):
+  File "/Users/baueteeling/Library/CloudStorage/OneDrive-Personal/ONEDRIVE/STUDIE/THESIS/AttritionMLOps/scripts/04_model_trainer.py", line 183, in <module>
+    rand_search.fit(X_trainval, y_trainval)
+  File "/Users/baueteeling/Library/CloudStorage/OneDrive-Personal/ONEDRIVE/STUDIE/THESIS/AttritionMLOps/.venv/lib/python3.11/site-packages/sklearn/base.py", line 1151, in wrapper
+    return fit_method(estimator, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/baueteeling/Library/CloudStorage/OneDrive-Personal/ONEDRIVE/STUDIE/THESIS/AttritionMLOps/.venv/lib/python3.11/site-packages/sklearn/model_selection/_search.py", line 898, in fit
+    self._run_search(evaluate_candidates)
+  File "/Users/baueteeling/Library/CloudStorage/OneDrive-Personal/ONEDRIVE/STUDIE/THESIS/AttritionMLOps/.venv/lib/python3.11/site-packages/sklearn/model_selection/_search.py", line 1806, in _run_search
+    evaluate_candidates(
+  File "/Users/baueteeling/Library/CloudStorage/OneDrive-Personal/ONEDRIVE/STUDIE/THESIS/AttritionMLOps/.venv/lib/python3.11/site-packages/sklearn/model_selection/_search.py", line 875, in evaluate_candidates
+    _warn_or_raise_about_fit_failures(out, self.error_score)
+  File "/Users/baueteeling/Library/CloudStorage/OneDrive-Personal/ONEDRIVE/STUDIE/THESIS/AttritionMLOps/.venv/lib/python3.11/site-packages/sklearn/model_selection/_validation.py", line 414, in _warn_or_raise_about_fit_failures
+    raise ValueError(all_fits_failed_message)
+ValueError: 
+All the 500 fits failed.
+It is very likely that your model is misconfigured.
+You can try to debug the error by setting error_score='raise'.
+
+Below are more details about the failures:
+--------------------------------------------------------------------------------
+62 fits failed with the following error:
+Traceback (most recent call last):
+  File "/Users/baueteeling/Library/CloudStorage/OneDrive-Personal/ONEDRIVE/STUDIE/THESIS/AttritionMLOps/.venv/lib/python3.11/site-packages/sklearn/model_selection/_validation.py", line 732, in _fit_and_score
+    estimator.fit(X_train, y_train, **fit_params)
+  File "/Users/baueteeling/Library/CloudStorage/OneDrive-Personal/ONEDRIVE/STUDIE/THESIS/AttritionMLOps/.venv/lib/python3.11/site-packages/xgboost/core.py", line 620, in inner_f
+    return func(**kwargs)
+           ^^^^^^^^^^^^^^
+  File "/Users/baueteeling/Library/CloudStorage/OneDrive-Personal/ONEDRIVE/STUDIE/THESIS/AttritionMLOps/.venv/lib/python3.11/site-packages/xgboost/sklearn.py", line 1490, in fit
+    self._Booster = train(
+                    ^^^^^^
+  File "/Users/baueteeling/Library/CloudStorage/OneDrive-Personal/ONEDRIVE/STUDIE/THESIS/AttritionMLOps/.venv/lib/python3.11/site-packages/xgboost/core.py", line 620, in inner_f
+    return func(**kwargs)
+           ^^^^^^^^^^^^^^
+  File "/Users/baueteeling/Library/CloudStorage/OneDrive-Personal/ONEDRIVE/STUDIE/THESIS/AttritionMLOps/.venv/lib/python3.11/site-packages/xgboost/training.py", line 185, in train
+    bst.update(dtrain, i, obj)
+  File "/Users/baueteeling/Library/CloudStorage/OneDrive-Personal/ONEDRIVE/STUDIE/THESIS/AttritionMLOps/.venv/lib/python3.11/site-packages/xgboost/core.py", line 1918, in update
+    _check_call(_LIB.XGBoosterUpdateOneIter(self.handle,
+  File "/Users/baueteeling/Library/CloudStorage/OneDrive-Personal/ONEDRIVE/STUDIE/THESIS/AttritionMLOps/.venv/lib/python3.11/site-packages/xgboost/core.py", line 279, in _check_call
+    raise XGBoostError(py_str(_LIB.XGBGetLastError()))
+xgboost.core.XGBoostError: [11:12:26] /Users/runner/work/xgboost/xgboost/python-package/build/temp.macosx-11.0-arm64-cpython-38/xgboost/src/metric/metric.cc:49: Unknown metric function f1
+Stack trace:
+  [bt] (0) 1   libxgboost.dylib                    0x000000010ea219f8 dmlc::LogMessageFatal::~LogMessageFatal() + 124
+  [bt] (1) 2   libxgboost.dylib                    0x000000010eb5716c xgboost::Metric::Create(std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>> const&, xgboost::GenericParameter const*) + 124
+  [bt] (2) 3   libxgboost.dylib                    0x000000010eb2d98c xgboost::LearnerConfiguration::ConfigureMetrics(std::__1::vector<std::__1::pair<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>>, std::__1::allocator<std::__1::pair<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>>>> const&) + 216
+  [bt] (3) 4   libxgboost.dylib                    0x000000010eb22210 xgboost::LearnerConfiguration::Configure() + 1172
+  [bt] (4) 5   libxgboost.dylib                    0x000000010eb224f8 xgboost::LearnerImpl::UpdateOneIter(int, std::__1::shared_ptr<xgboost::DMatrix>) + 128
+  [bt] (5) 6   libxgboost.dylib                    0x000000010ea3b248 XGBoosterUpdateOneIter + 144
+  [bt] (6) 7   libffi.dylib                        0x000000019e0d7050 ffi_call_SYSV + 80
+  [bt] (7) 8   libffi.dylib                        0x000000019e0dfb04 ffi_call_int + 1208
+  [bt] (8) 9   _ctypes.cpython-311-darwin.so       0x0000000101e94924 _ctypes_callproc + 768
+
+
+
+--------------------------------------------------------------------------------
+75 fits failed with the following error:
+Traceback (most recent call last):
+  File "/Users/baueteeling/Library/CloudStorage/OneDrive-Personal/ONEDRIVE/STUDIE/THESIS/AttritionMLOps/.venv/lib/python3.11/site-packages/sklearn/model_selection/_validation.py", line 732, in _fit_and_score
+    estimator.fit(X_train, y_train, **fit_params)
+  File "/Users/baueteeling/Library/CloudStorage/OneDrive-Personal/ONEDRIVE/STUDIE/THESIS/AttritionMLOps/.venv/lib/python3.11/site-packages/xgboost/core.py", line 620, in inner_f
+    return func(**kwargs)
+           ^^^^^^^^^^^^^^
+  File "/Users/baueteeling/Library/CloudStorage/OneDrive-Personal/ONEDRIVE/STUDIE/THESIS/AttritionMLOps/.venv/lib/python3.11/site-packages/xgboost/sklearn.py", line 1490, in fit
+    self._Booster = train(
+                    ^^^^^^
+  File "/Users/baueteeling/Library/CloudStorage/OneDrive-Personal/ONEDRIVE/STUDIE/THESIS/AttritionMLOps/.venv/lib/python3.11/site-packages/xgboost/core.py", line 620, in inner_f
+    return func(**kwargs)
+           ^^^^^^^^^^^^^^
+  File "/Users/baueteeling/Library/CloudStorage/OneDrive-Personal/ONEDRIVE/STUDIE/THESIS/AttritionMLOps/.venv/lib/python3.11/site-packages/xgboost/training.py", line 185, in train
+    bst.update(dtrain, i, obj)
+  File "/Users/baueteeling/Library/CloudStorage/OneDrive-Personal/ONEDRIVE/STUDIE/THESIS/AttritionMLOps/.venv/lib/python3.11/site-packages/xgboost/core.py", line 1918, in update
+    _check_call(_LIB.XGBoosterUpdateOneIter(self.handle,
+  File "/Users/baueteeling/Library/CloudStorage/OneDrive-Personal/ONEDRIVE/STUDIE/THESIS/AttritionMLOps/.venv/lib/python3.11/site-packages/xgboost/core.py", line 279, in _check_call
+    raise XGBoostError(py_str(_LIB.XGBGetLastError()))
+xgboost.core.XGBoostError: [11:12:26] /Users/runner/work/xgboost/xgboost/python-package/build/temp.macosx-11.0-arm64-cpython-38/xgboost/src/metric/metric.cc:49: Unknown metric function f1
+Stack trace:
+  [bt] (0) 1   libxgboost.dylib                    0x00000001175219f8 dmlc::LogMessageFatal::~LogMessageFatal() + 124
+  [bt] (1) 2   libxgboost.dylib                    0x000000011765716c xgboost::Metric::Create(std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>> const&, xgboost::GenericParameter const*) + 124
+  [bt] (2) 3   libxgboost.dylib                    0x000000011762d98c xgboost::LearnerConfiguration::ConfigureMetrics(std::__1::vector<std::__1::pair<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>>, std::__1::allocator<std::__1::pair<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>>>> const&) + 216
+  [bt] (3) 4   libxgboost.dylib                    0x0000000117622210 xgboost::LearnerConfiguration::Configure() + 1172
+  [bt] (4) 5   libxgboost.dylib                    0x00000001176224f8 xgboost::LearnerImpl::UpdateOneIter(int, std::__1::shared_ptr<xgboost::DMatrix>) + 128
+  [bt] (5) 6   libxgboost.dylib                    0x000000011753b248 XGBoosterUpdateOneIter + 144
+  [bt] (6) 7   libffi.dylib                        0x000000019e0d7050 ffi_call_SYSV + 80
+  [bt] (7) 8   libffi.dylib                        0x000000019e0dfb04 ffi_call_int + 1208
+  [bt] (8) 9   _ctypes.cpython-311-darwin.so       0x0000000101184924 _ctypes_callproc + 768
+
+
+
+--------------------------------------------------------------------------------
+66 fits failed with the following error:
+Traceback (most recent call last):
+  File "/Users/baueteeling/Library/CloudStorage/OneDrive-Personal/ONEDRIVE/STUDIE/THESIS/AttritionMLOps/.venv/lib/python3.11/site-packages/sklearn/model_selection/_validation.py", line 732, in _fit_and_score
+    estimator.fit(X_train, y_train, **fit_params)
+  File "/Users/baueteeling/Library/CloudStorage/OneDrive-Personal/ONEDRIVE/STUDIE/THESIS/AttritionMLOps/.venv/lib/python3.11/site-packages/xgboost/core.py", line 620, in inner_f
+    return func(**kwargs)
+           ^^^^^^^^^^^^^^
+  File "/Users/baueteeling/Library/CloudStorage/OneDrive-Personal/ONEDRIVE/STUDIE/THESIS/AttritionMLOps/.venv/lib/python3.11/site-packages/xgboost/sklearn.py", line 1490, in fit
+    self._Booster = train(
+                    ^^^^^^
+  File "/Users/baueteeling/Library/CloudStorage/OneDrive-Personal/ONEDRIVE/STUDIE/THESIS/AttritionMLOps/.venv/lib/python3.11/site-packages/xgboost/core.py", line 620, in inner_f
+    return func(**kwargs)
+           ^^^^^^^^^^^^^^
+  File "/Users/baueteeling/Library/CloudStorage/OneDrive-Personal/ONEDRIVE/STUDIE/THESIS/AttritionMLOps/.venv/lib/python3.11/site-packages/xgboost/training.py", line 185, in train
+    bst.update(dtrain, i, obj)
+  File "/Users/baueteeling/Library/CloudStorage/OneDrive-Personal/ONEDRIVE/STUDIE/THESIS/AttritionMLOps/.venv/lib/python3.11/site-packages/xgboost/core.py", line 1918, in update
+    _check_call(_LIB.XGBoosterUpdateOneIter(self.handle,
+  File "/Users/baueteeling/Library/CloudStorage/OneDrive-Personal/ONEDRIVE/STUDIE/THESIS/AttritionMLOps/.venv/lib/python3.11/site-packages/xgboost/core.py", line 279, in _check_call
+    raise XGBoostError(py_str(_LIB.XGBGetLastError()))
+xgboost.core.XGBoostError: [11:12:26] /Users/runner/work/xgboost/xgboost/python-package/build/temp.macosx-11.0-arm64-cpython-38/xgboost/src/metric/metric.cc:49: Unknown metric function f1
+Stack trace:
+  [bt] (0) 1   libxgboost.dylib                    0x00000001200059f8 dmlc::LogMessageFatal::~LogMessageFatal() + 124
+  [bt] (1) 2   libxgboost.dylib                    0x000000012013b16c xgboost::Metric::Create(std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>> const&, xgboost::GenericParameter const*) + 124
+  [bt] (2) 3   libxgboost.dylib                    0x000000012011198c xgboost::LearnerConfiguration::ConfigureMetrics(std::__1::vector<std::__1::pair<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>>, std::__1::allocator<std::__1::pair<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>>>> const&) + 216
+  [bt] (3) 4   libxgboost.dylib                    0x0000000120106210 xgboost::LearnerConfiguration::Configure() + 1172
+  [bt] (4) 5   libxgboost.dylib                    0x00000001201064f8 xgboost::LearnerImpl::UpdateOneIter(int, std::__1::shared_ptr<xgboost::DMatrix>) + 128
+  [bt] (5) 6   libxgboost.dylib                    0x000000012001f248 XGBoosterUpdateOneIter + 144
+  [bt] (6) 7   libffi.dylib                        0x000000019e0d7050 ffi_call_SYSV + 80
+  [bt] (7) 8   libffi.dylib                        0x000000019e0dfb04 ffi_call_int + 1208
+  [bt] (8) 9   _ctypes.cpython-311-darwin.so       0x0000000101414924 _ctypes_callproc + 768
+
+
+
+--------------------------------------------------------------------------------
+60 fits failed with the following error:
+Traceback (most recent call last):
+  File "/Users/baueteeling/Library/CloudStorage/OneDrive-Personal/ONEDRIVE/STUDIE/THESIS/AttritionMLOps/.venv/lib/python3.11/site-packages/sklearn/model_selection/_validation.py", line 732, in _fit_and_score
+    estimator.fit(X_train, y_train, **fit_params)
+  File "/Users/baueteeling/Library/CloudStorage/OneDrive-Personal/ONEDRIVE/STUDIE/THESIS/AttritionMLOps/.venv/lib/python3.11/site-packages/xgboost/core.py", line 620, in inner_f
+    return func(**kwargs)
+           ^^^^^^^^^^^^^^
+  File "/Users/baueteeling/Library/CloudStorage/OneDrive-Personal/ONEDRIVE/STUDIE/THESIS/AttritionMLOps/.venv/lib/python3.11/site-packages/xgboost/sklearn.py", line 1490, in fit
+    self._Booster = train(
+                    ^^^^^^
+  File "/Users/baueteeling/Library/CloudStorage/OneDrive-Personal/ONEDRIVE/STUDIE/THESIS/AttritionMLOps/.venv/lib/python3.11/site-packages/xgboost/core.py", line 620, in inner_f
+    return func(**kwargs)
+           ^^^^^^^^^^^^^^
+  File "/Users/baueteeling/Library/CloudStorage/OneDrive-Personal/ONEDRIVE/STUDIE/THESIS/AttritionMLOps/.venv/lib/python3.11/site-packages/xgboost/training.py", line 185, in train
+    bst.update(dtrain, i, obj)
+  File "/Users/baueteeling/Library/CloudStorage/OneDrive-Personal/ONEDRIVE/STUDIE/THESIS/AttritionMLOps/.venv/lib/python3.11/site-packages/xgboost/core.py", line 1918, in update
+    _check_call(_LIB.XGBoosterUpdateOneIter(self.handle,
+  File "/Users/baueteeling/Library/CloudStorage/OneDrive-Personal/ONEDRIVE/STUDIE/THESIS/AttritionMLOps/.venv/lib/python3.11/site-packages/xgboost/core.py", line 279, in _check_call
+    raise XGBoostError(py_str(_LIB.XGBGetLastError()))
+xgboost.core.XGBoostError: [11:12:26] /Users/runner/work/xgboost/xgboost/python-package/build/temp.macosx-11.0-arm64-cpython-38/xgboost/src/metric/metric.cc:49: Unknown metric function f1
+Stack trace:
+  [bt] (0) 1   libxgboost.dylib                    0x00000001203e59f8 dmlc::LogMessageFatal::~LogMessageFatal() + 124
+  [bt] (1) 2   libxgboost.dylib                    0x000000012051b16c xgboost::Metric::Create(std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>> const&, xgboost::GenericParameter const*) + 124
+  [bt] (2) 3   libxgboost.dylib                    0x00000001204f198c xgboost::LearnerConfiguration::ConfigureMetrics(std::__1::vector<std::__1::pair<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>>, std::__1::allocator<std::__1::pair<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>>>> const&) + 216
+  [bt] (3) 4   libxgboost.dylib                    0x00000001204e6210 xgboost::LearnerConfiguration::Configure() + 1172
+  [bt] (4) 5   libxgboost.dylib                    0x00000001204e64f8 xgboost::LearnerImpl::UpdateOneIter(int, std::__1::shared_ptr<xgboost::DMatrix>) + 128
+  [bt] (5) 6   libxgboost.dylib                    0x00000001203ff248 XGBoosterUpdateOneIter + 144
+  [bt] (6) 7   libffi.dylib                        0x000000019e0d7050 ffi_call_SYSV + 80
+  [bt] (7) 8   libffi.dylib                        0x000000019e0dfb04 ffi_call_int + 1208
+  [bt] (8) 9   _ctypes.cpython-311-darwin.so       0x000000010316c924 _ctypes_callproc + 768
+
+
+
+--------------------------------------------------------------------------------
+54 fits failed with the following error:
+Traceback (most recent call last):
+  File "/Users/baueteeling/Library/CloudStorage/OneDrive-Personal/ONEDRIVE/STUDIE/THESIS/AttritionMLOps/.venv/lib/python3.11/site-packages/sklearn/model_selection/_validation.py", line 732, in _fit_and_score
+    estimator.fit(X_train, y_train, **fit_params)
+  File "/Users/baueteeling/Library/CloudStorage/OneDrive-Personal/ONEDRIVE/STUDIE/THESIS/AttritionMLOps/.venv/lib/python3.11/site-packages/xgboost/core.py", line 620, in inner_f
+    return func(**kwargs)
+           ^^^^^^^^^^^^^^
+  File "/Users/baueteeling/Library/CloudStorage/OneDrive-Personal/ONEDRIVE/STUDIE/THESIS/AttritionMLOps/.venv/lib/python3.11/site-packages/xgboost/sklearn.py", line 1490, in fit
+    self._Booster = train(
+                    ^^^^^^
+  File "/Users/baueteeling/Library/CloudStorage/OneDrive-Personal/ONEDRIVE/STUDIE/THESIS/AttritionMLOps/.venv/lib/python3.11/site-packages/xgboost/core.py", line 620, in inner_f
+    return func(**kwargs)
+           ^^^^^^^^^^^^^^
+  File "/Users/baueteeling/Library/CloudStorage/OneDrive-Personal/ONEDRIVE/STUDIE/THESIS/AttritionMLOps/.venv/lib/python3.11/site-packages/xgboost/training.py", line 185, in train
+    bst.update(dtrain, i, obj)
+  File "/Users/baueteeling/Library/CloudStorage/OneDrive-Personal/ONEDRIVE/STUDIE/THESIS/AttritionMLOps/.venv/lib/python3.11/site-packages/xgboost/core.py", line 1918, in update
+    _check_call(_LIB.XGBoosterUpdateOneIter(self.handle,
+  File "/Users/baueteeling/Library/CloudStorage/OneDrive-Personal/ONEDRIVE/STUDIE/THESIS/AttritionMLOps/.venv/lib/python3.11/site-packages/xgboost/core.py", line 279, in _check_call
+    raise XGBoostError(py_str(_LIB.XGBGetLastError()))
+xgboost.core.XGBoostError: [11:12:26] /Users/runner/work/xgboost/xgboost/python-package/build/temp.macosx-11.0-arm64-cpython-38/xgboost/src/metric/metric.cc:49: Unknown metric function f1
+Stack trace:
+  [bt] (0) 1   libxgboost.dylib                    0x000000011b6e59f8 dmlc::LogMessageFatal::~LogMessageFatal() + 124
+  [bt] (1) 2   libxgboost.dylib                    0x000000011b81b16c xgboost::Metric::Create(std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>> const&, xgboost::GenericParameter const*) + 124
+  [bt] (2) 3   libxgboost.dylib                    0x000000011b7f198c xgboost::LearnerConfiguration::ConfigureMetrics(std::__1::vector<std::__1::pair<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>>, std::__1::allocator<std::__1::pair<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>>>> const&) + 216
+  [bt] (3) 4   libxgboost.dylib                    0x000000011b7e6210 xgboost::LearnerConfiguration::Configure() + 1172
+  [bt] (4) 5   libxgboost.dylib                    0x000000011b7e64f8 xgboost::LearnerImpl::UpdateOneIter(int, std::__1::shared_ptr<xgboost::DMatrix>) + 128
+  [bt] (5) 6   libxgboost.dylib                    0x000000011b6ff248 XGBoosterUpdateOneIter + 144
+  [bt] (6) 7   libffi.dylib                        0x000000019e0d7050 ffi_call_SYSV + 80
+  [bt] (7) 8   libffi.dylib                        0x000000019e0dfb04 ffi_call_int + 1208
+  [bt] (8) 9   _ctypes.cpython-311-darwin.so       0x0000000105290924 _ctypes_callproc + 768
+
+
+
+--------------------------------------------------------------------------------
+62 fits failed with the following error:
+Traceback (most recent call last):
+  File "/Users/baueteeling/Library/CloudStorage/OneDrive-Personal/ONEDRIVE/STUDIE/THESIS/AttritionMLOps/.venv/lib/python3.11/site-packages/sklearn/model_selection/_validation.py", line 732, in _fit_and_score
+    estimator.fit(X_train, y_train, **fit_params)
+  File "/Users/baueteeling/Library/CloudStorage/OneDrive-Personal/ONEDRIVE/STUDIE/THESIS/AttritionMLOps/.venv/lib/python3.11/site-packages/xgboost/core.py", line 620, in inner_f
+    return func(**kwargs)
+           ^^^^^^^^^^^^^^
+  File "/Users/baueteeling/Library/CloudStorage/OneDrive-Personal/ONEDRIVE/STUDIE/THESIS/AttritionMLOps/.venv/lib/python3.11/site-packages/xgboost/sklearn.py", line 1490, in fit
+    self._Booster = train(
+                    ^^^^^^
+  File "/Users/baueteeling/Library/CloudStorage/OneDrive-Personal/ONEDRIVE/STUDIE/THESIS/AttritionMLOps/.venv/lib/python3.11/site-packages/xgboost/core.py", line 620, in inner_f
+    return func(**kwargs)
+           ^^^^^^^^^^^^^^
+  File "/Users/baueteeling/Library/CloudStorage/OneDrive-Personal/ONEDRIVE/STUDIE/THESIS/AttritionMLOps/.venv/lib/python3.11/site-packages/xgboost/training.py", line 185, in train
+    bst.update(dtrain, i, obj)
+  File "/Users/baueteeling/Library/CloudStorage/OneDrive-Personal/ONEDRIVE/STUDIE/THESIS/AttritionMLOps/.venv/lib/python3.11/site-packages/xgboost/core.py", line 1918, in update
+    _check_call(_LIB.XGBoosterUpdateOneIter(self.handle,
+  File "/Users/baueteeling/Library/CloudStorage/OneDrive-Personal/ONEDRIVE/STUDIE/THESIS/AttritionMLOps/.venv/lib/python3.11/site-packages/xgboost/core.py", line 279, in _check_call
+    raise XGBoostError(py_str(_LIB.XGBGetLastError()))
+xgboost.core.XGBoostError: [11:12:26] /Users/runner/work/xgboost/xgboost/python-package/build/temp.macosx-11.0-arm64-cpython-38/xgboost/src/metric/metric.cc:49: Unknown metric function f1
+Stack trace:
+  [bt] (0) 1   libxgboost.dylib                    0x0000000121e219f8 dmlc::LogMessageFatal::~LogMessageFatal() + 124
+  [bt] (1) 2   libxgboost.dylib                    0x0000000121f5716c xgboost::Metric::Create(std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>> const&, xgboost::GenericParameter const*) + 124
+  [bt] (2) 3   libxgboost.dylib                    0x0000000121f2d98c xgboost::LearnerConfiguration::ConfigureMetrics(std::__1::vector<std::__1::pair<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>>, std::__1::allocator<std::__1::pair<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>>>> const&) + 216
+  [bt] (3) 4   libxgboost.dylib                    0x0000000121f22210 xgboost::LearnerConfiguration::Configure() + 1172
+  [bt] (4) 5   libxgboost.dylib                    0x0000000121f224f8 xgboost::LearnerImpl::UpdateOneIter(int, std::__1::shared_ptr<xgboost::DMatrix>) + 128
+  [bt] (5) 6   libxgboost.dylib                    0x0000000121e3b248 XGBoosterUpdateOneIter + 144
+  [bt] (6) 7   libffi.dylib                        0x000000019e0d7050 ffi_call_SYSV + 80
+  [bt] (7) 8   libffi.dylib                        0x000000019e0dfb04 ffi_call_int + 1208
+  [bt] (8) 9   _ctypes.cpython-311-darwin.so       0x0000000103b0c924 _ctypes_callproc + 768
+
+
+
+--------------------------------------------------------------------------------
+64 fits failed with the following error:
+Traceback (most recent call last):
+  File "/Users/baueteeling/Library/CloudStorage/OneDrive-Personal/ONEDRIVE/STUDIE/THESIS/AttritionMLOps/.venv/lib/python3.11/site-packages/sklearn/model_selection/_validation.py", line 732, in _fit_and_score
+    estimator.fit(X_train, y_train, **fit_params)
+  File "/Users/baueteeling/Library/CloudStorage/OneDrive-Personal/ONEDRIVE/STUDIE/THESIS/AttritionMLOps/.venv/lib/python3.11/site-packages/xgboost/core.py", line 620, in inner_f
+    return func(**kwargs)
+           ^^^^^^^^^^^^^^
+  File "/Users/baueteeling/Library/CloudStorage/OneDrive-Personal/ONEDRIVE/STUDIE/THESIS/AttritionMLOps/.venv/lib/python3.11/site-packages/xgboost/sklearn.py", line 1490, in fit
+    self._Booster = train(
+                    ^^^^^^
+  File "/Users/baueteeling/Library/CloudStorage/OneDrive-Personal/ONEDRIVE/STUDIE/THESIS/AttritionMLOps/.venv/lib/python3.11/site-packages/xgboost/core.py", line 620, in inner_f
+    return func(**kwargs)
+           ^^^^^^^^^^^^^^
+  File "/Users/baueteeling/Library/CloudStorage/OneDrive-Personal/ONEDRIVE/STUDIE/THESIS/AttritionMLOps/.venv/lib/python3.11/site-packages/xgboost/training.py", line 185, in train
+    bst.update(dtrain, i, obj)
+  File "/Users/baueteeling/Library/CloudStorage/OneDrive-Personal/ONEDRIVE/STUDIE/THESIS/AttritionMLOps/.venv/lib/python3.11/site-packages/xgboost/core.py", line 1918, in update
+    _check_call(_LIB.XGBoosterUpdateOneIter(self.handle,
+  File "/Users/baueteeling/Library/CloudStorage/OneDrive-Personal/ONEDRIVE/STUDIE/THESIS/AttritionMLOps/.venv/lib/python3.11/site-packages/xgboost/core.py", line 279, in _check_call
+    raise XGBoostError(py_str(_LIB.XGBGetLastError()))
+xgboost.core.XGBoostError: [11:12:26] /Users/runner/work/xgboost/xgboost/python-package/build/temp.macosx-11.0-arm64-cpython-38/xgboost/src/metric/metric.cc:49: Unknown metric function f1
+Stack trace:
+  [bt] (0) 1   libxgboost.dylib                    0x00000001274e59f8 dmlc::LogMessageFatal::~LogMessageFatal() + 124
+  [bt] (1) 2   libxgboost.dylib                    0x000000012761b16c xgboost::Metric::Create(std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>> const&, xgboost::GenericParameter const*) + 124
+  [bt] (2) 3   libxgboost.dylib                    0x00000001275f198c xgboost::LearnerConfiguration::ConfigureMetrics(std::__1::vector<std::__1::pair<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>>, std::__1::allocator<std::__1::pair<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>>>> const&) + 216
+  [bt] (3) 4   libxgboost.dylib                    0x00000001275e6210 xgboost::LearnerConfiguration::Configure() + 1172
+  [bt] (4) 5   libxgboost.dylib                    0x00000001275e64f8 xgboost::LearnerImpl::UpdateOneIter(int, std::__1::shared_ptr<xgboost::DMatrix>) + 128
+  [bt] (5) 6   libxgboost.dylib                    0x00000001274ff248 XGBoosterUpdateOneIter + 144
+  [bt] (6) 7   libffi.dylib                        0x000000019e0d7050 ffi_call_SYSV + 80
+  [bt] (7) 8   libffi.dylib                        0x000000019e0dfb04 ffi_call_int + 1208
+  [bt] (8) 9   _ctypes.cpython-311-darwin.so       0x000000010231c924 _ctypes_callproc + 768
+
+
+
+--------------------------------------------------------------------------------
+57 fits failed with the following error:
+Traceback (most recent call last):
+  File "/Users/baueteeling/Library/CloudStorage/OneDrive-Personal/ONEDRIVE/STUDIE/THESIS/AttritionMLOps/.venv/lib/python3.11/site-packages/sklearn/model_selection/_validation.py", line 732, in _fit_and_score
+    estimator.fit(X_train, y_train, **fit_params)
+  File "/Users/baueteeling/Library/CloudStorage/OneDrive-Personal/ONEDRIVE/STUDIE/THESIS/AttritionMLOps/.venv/lib/python3.11/site-packages/xgboost/core.py", line 620, in inner_f
+    return func(**kwargs)
+           ^^^^^^^^^^^^^^
+  File "/Users/baueteeling/Library/CloudStorage/OneDrive-Personal/ONEDRIVE/STUDIE/THESIS/AttritionMLOps/.venv/lib/python3.11/site-packages/xgboost/sklearn.py", line 1490, in fit
+    self._Booster = train(
+                    ^^^^^^
+  File "/Users/baueteeling/Library/CloudStorage/OneDrive-Personal/ONEDRIVE/STUDIE/THESIS/AttritionMLOps/.venv/lib/python3.11/site-packages/xgboost/core.py", line 620, in inner_f
+    return func(**kwargs)
+           ^^^^^^^^^^^^^^
+  File "/Users/baueteeling/Library/CloudStorage/OneDrive-Personal/ONEDRIVE/STUDIE/THESIS/AttritionMLOps/.venv/lib/python3.11/site-packages/xgboost/training.py", line 185, in train
+    bst.update(dtrain, i, obj)
+  File "/Users/baueteeling/Library/CloudStorage/OneDrive-Personal/ONEDRIVE/STUDIE/THESIS/AttritionMLOps/.venv/lib/python3.11/site-packages/xgboost/core.py", line 1918, in update
+    _check_call(_LIB.XGBoosterUpdateOneIter(self.handle,
+  File "/Users/baueteeling/Library/CloudStorage/OneDrive-Personal/ONEDRIVE/STUDIE/THESIS/AttritionMLOps/.venv/lib/python3.11/site-packages/xgboost/core.py", line 279, in _check_call
+    raise XGBoostError(py_str(_LIB.XGBGetLastError()))
+xgboost.core.XGBoostError: [11:12:26] /Users/runner/work/xgboost/xgboost/python-package/build/temp.macosx-11.0-arm64-cpython-38/xgboost/src/metric/metric.cc:49: Unknown metric function f1
+Stack trace:
+  [bt] (0) 1   libxgboost.dylib                    0x00000001248ed9f8 dmlc::LogMessageFatal::~LogMessageFatal() + 124
+  [bt] (1) 2   libxgboost.dylib                    0x0000000124a2316c xgboost::Metric::Create(std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>> const&, xgboost::GenericParameter const*) + 124
+  [bt] (2) 3   libxgboost.dylib                    0x00000001249f998c xgboost::LearnerConfiguration::ConfigureMetrics(std::__1::vector<std::__1::pair<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>>, std::__1::allocator<std::__1::pair<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>>>> const&) + 216
+  [bt] (3) 4   libxgboost.dylib                    0x00000001249ee210 xgboost::LearnerConfiguration::Configure() + 1172
+  [bt] (4) 5   libxgboost.dylib                    0x00000001249ee4f8 xgboost::LearnerImpl::UpdateOneIter(int, std::__1::shared_ptr<xgboost::DMatrix>) + 128
+  [bt] (5) 6   libxgboost.dylib                    0x0000000124907248 XGBoosterUpdateOneIter + 144
+  [bt] (6) 7   libffi.dylib                        0x000000019e0d7050 ffi_call_SYSV + 80
+  [bt] (7) 8   libffi.dylib                        0x000000019e0dfb04 ffi_call_int + 1208
+  [bt] (8) 9   _ctypes.cpython-311-darwin.so       0x0000000105fac924 _ctypes_callproc + 768
+
+
+
+Finished with exit code: 1
+
+
+PIPELINE FAILED: Script python /Users/baueteeling/Library/CloudStorage/OneDrive-Personal/ONEDRIVE/STUDIE/THESIS/AttritionMLOps/scripts/04_model_trainer.py --input_file results/experiment_1/run_20250606_111214/mlops/ibm/03_ibm_engineered_features.csv --output_dir results/experiment_1/run_20250606_111214/mlops/ibm/artifacts failed with exit code 1. Check log: results/experiment_1/run_20250606_111214/mlops/ibm/pipeline_log.txt
+
+Pipeline finished at 2025-06-06T11:12:26.931691
+Total pipeline duration: 0 days 00:00:05.776102
+Resource usage logged to: results/experiment_1/run_20250606_111214/mlops/ibm/resource_usage.csv

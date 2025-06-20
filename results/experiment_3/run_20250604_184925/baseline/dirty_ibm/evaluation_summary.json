@@ -1,0 +1,33 @@
+{
+    "auc": {
+        "point_estimate": 0.9254557291666667,
+        "ci_lower": 0.8773126161678867,
+        "ci_upper": 0.9678740157480314
+    },
+    "accuracy": {
+        "point_estimate": 0.8552631578947368,
+        "ci_lower": 0.8026315789473685,
+        "ci_upper": 0.9078947368421053
+    },
+    "precision": {
+        "point_estimate": 0.5294117647058824,
+        "ci_lower": 0.35714285714285715,
+        "ci_upper": 0.6956851119894598
+    },
+    "recall": {
+        "point_estimate": 0.75,
+        "ci_lower": 0.5712732919254659,
+        "ci_upper": 0.9090909090909091
+    },
+    "f1_score": {
+        "point_estimate": 0.6206896551724139,
+        "ci_lower": 0.44886621315192754,
+        "ci_upper": 0.75
+    },
+    "fairness_metrics": {
+        "demographic_parity_difference_gender": 0.12642045454545456,
+        "equalized_odds_difference_gender": 0.2571428571428571,
+        "demographic_parity_difference_age_binned": 0.3970223325062035,
+        "equalized_odds_difference_age_binned": 1.0
+    }
+}

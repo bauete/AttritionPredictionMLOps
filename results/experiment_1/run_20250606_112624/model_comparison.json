@@ -1,0 +1,32 @@
+{
+  "model_comparison": {
+    "accuracy": {
+      "MLOps Pipeline": 0.8299319727891157,
+      "Baseline Pipeline": 0.8027210884353742,
+      "difference": 0.027210884353741527
+    },
+    "precision": {
+      "MLOps Pipeline": 0.46153846153846156,
+      "Baseline Pipeline": 0.2222222222222222,
+      "difference": 0.23931623931623935
+    },
+    "recall": {
+      "MLOps Pipeline": 0.25,
+      "Baseline Pipeline": 0.08333333333333333,
+      "difference": 0.16666666666666669
+    },
+    "f1_score": {
+      "MLOps Pipeline": 0.32432432432432434,
+      "Baseline Pipeline": 0.12121212121212122,
+      "difference": 0.20311220311220313
+    },
+    "auc": {
+      "MLOps Pipeline": 0.7584688346883468,
+      "Baseline Pipeline": 0.7530487804878049,
+      "difference": 0.005420054200541924
+    },
+    "statistical_test": {
+      "test_type": "wilcoxon_signed_rank",
+      "statistic": 5.0,
+      "p_value": 0.625,
+      "significant": 

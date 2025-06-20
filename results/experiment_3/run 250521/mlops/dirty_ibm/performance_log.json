@@ -1,0 +1,11 @@
+[
+  {
+    "timestamp": "2025-05-21T17:25:25.528053",
+    "model_path": "results/experiment_3/mlops/dirty_ibm/artifacts/model.pkl",
+    "data_path": "results/experiment_3/mlops/dirty_ibm/03_dirty_ibm_engineered_features.csv",
+    "accuracy": 0.9693877551020408,
+    "f1_score": 0.8988764044943821,
+    "roc_auc": 0.9642359720896171,
+    "alert": false
+  }
+]

@@ -1,0 +1,132 @@
+{
+  "experiment_date": "2025-06-04T18:58:03.452989",
+  "timestamp": "20250604_185803",
+  "experiment_focus": "Dirty Dataset Comparison (Experiment 3: D3, T3, M3, C3)",
+  "datasets_provided": {
+    "ibm_raw_reference_csv": "data/ibm_dataset.csv",
+    "dirty_dataset_csv": "data/ibm_dataset_dirty.csv"
+  },
+  "baseline": {
+    "dirty_ibm": {
+      "pipeline_type": "baseline",
+      "acquired_data_path": "results/experiment_3/run_20250604_185803/baseline/dirty_ibm/01_dirty_ibm_acquired_data.csv",
+      "preprocessed_data_path": "results/experiment_3/run_20250604_185803/baseline/dirty_ibm/02_dirty_ibm_preprocessed_data.csv",
+      "engineered_data_path": "results/experiment_3/run_20250604_185803/baseline/dirty_ibm/03_dirty_ibm_engineered_features.csv",
+      "feature_selector_path": "results/experiment_1/latest_artifacts/baseline/ibm/artifacts/feature_selector.pkl",
+      "expected_cols_path": "results/experiment_1/latest_artifacts/baseline/ibm/artifacts/expected_cols.json",
+      "model_trained": false,
+      "model_path": "results/experiment_3/run_20250604_185803/baseline/dirty_ibm/artifacts",
+      "evaluation_summary_path": "results/experiment_3/run_20250604_185803/baseline/dirty_ibm/evaluation_summary.json",
+      "auc": {
+        "point_estimate": 0.9248046875000001,
+        "ci_lower": 0.8767517073630318,
+        "ci_upper": 0.9662238636363636
+      },
+      "accuracy": {
+        "point_estimate": 0.8552631578947368,
+        "ci_lower": 0.8026315789473685,
+        "ci_upper": 0.9078947368421053
+      },
+      "precision": {
+        "point_estimate": 0.5294117647058824,
+        "ci_lower": 0.35714285714285715,
+        "ci_upper": 0.6956851119894598
+      },
+      "recall": {
+        "point_estimate": 0.75,
+        "ci_lower": 0.5712732919254659,
+        "ci_upper": 0.9090909090909091
+      },
+      "f1_score": {
+        "point_estimate": 0.6206896551724139,
+        "ci_lower": 0.44886621315192754,
+        "ci_upper": 0.75
+      },
+      "fairness_metrics": {
+        "demographic_parity_difference_gender": 0.12642045454545456,
+        "equalized_odds_difference_gender": 0.2571428571428571,
+        "demographic_parity_difference_age_binned": 0.3970223325062035,
+        "equalized_odds_difference_age_binned": 1.0
+      },
+      "pipeline_duration_seconds": 5.417571,
+      "resource_usage_summary": {
+        "avg_cpu_percent_system": 30.9,
+        "max_cpu_percent_system": 61.8,
+        "avg_virtual_memory_percent_system": 69.0,
+        "max_virtual_memory_percent_system": 69.3,
+        "log_file": "resource_usage.csv"
+      }
+    }
+  },
+  "mlops": {
+    "dirty_ibm": {
+      "pipeline_type": "mlops",
+      "acquired_data_path": "results/experiment_3/run_20250604_185803/mlops/dirty_ibm/01_dirty_ibm_acquired_data.csv",
+      "drift_report_path": "results/experiment_3/run_20250604_185803/mlops/dirty_ibm/01b_drift_report.html",
+      "drift_status_path": "results/experiment_3/run_20250604_185803/mlops/dirty_ibm/01b_drift_status.json",
+      "drift_status": "error_status_file_not_found",
+      "preprocessed_data_path": "results/experiment_3/run_20250604_185803/mlops/dirty_ibm/02_dirty_ibm_preprocessed_data.csv",
+      "engineered_data_path": "results/experiment_3/run_20250604_185803/mlops/dirty_ibm/03_dirty_ibm_engineered_features.csv",
+      "feature_selector_path_used": "results/experiment_3/run_20250604_185803/mlops/dirty_ibm/artifacts/feature_selector.pkl",
+      "expected_cols_path_used": "results/experiment_3/run_20250604_185803/mlops/dirty_ibm/artifacts/expected_cols.json",
+      "model_trained_this_run": true,
+      "model_path": "results/experiment_3/run_20250604_185803/mlops/dirty_ibm/artifacts",
+      "evaluation_summary_path": "results/experiment_3/run_20250604_185803/mlops/dirty_ibm/evaluation_summary.json",
+      "auc": {
+        "point_estimate": 0.8238932291666666,
+        "ci_lower": 0.7414051346801348,
+        "ci_upper": 0.8972912070434249
+      },
+      "accuracy": {
+        "point_estimate": 0.8157894736842105,
+        "ci_lower": 0.75,
+        "ci_upper": 0.875
+      },
+      "precision": {
+        "point_estimate": 0.4444444444444444,
+        "ci_lower": 0.2856227106227107,
+        "ci_upper": 0.6153846153846154
+      },
+      "recall": {
+        "point_estimate": 0.6666666666666666,
+        "ci_lower": 0.47619047619047616,
+        "ci_upper": 0.8518518518518519
+      },
+      "f1_score": {
+        "point_estimate": 0.5333333333333333,
+        "ci_lower": 0.37195736434108545,
+        "ci_upper": 0.6786957504520794
+      },
+      "fairness_metrics": {
+        "demographic_parity_difference_gender": 0.13068181818181818,
+        "equalized_odds_difference_gender": 0.14614614614614613,
+        "demographic_parity_difference_age_binned": 0.4416873449131513,
+        "equalized_odds_difference_age_binned": 1.0
+      },
+      "performance_tracking_error": "Script python /Users/baueteeling/Library/CloudStorage/OneDrive-Personal/ONEDRIVE/STUDIE/THESIS/AttritionMLOps/scripts/../monitoring/performance_tracker.py --model_path results/experiment_3/run_20250604_185803/mlops/dirty_ibm/artifacts/model.pkl --reference_data results/experiment_3/run_20250604_185803/mlops/dirty_ibm/03_dirty_ibm_engineered_features.csv --output_dir results/experiment_3/run_20250604_185803/mlops/dirty_ibm failed with exit code 1. Check log: results/experiment_3/run_20250604_185803/mlops/dirty_ibm/pipeline_log.txt",
+      "pipeline_duration_seconds": 15.824611,
+      "resource_usage_summary": {
+        "avg_cpu_percent_system": 60.68,
+        "max_cpu_percent_system": 100.0,
+        "avg_virtual_memory_percent_system": 69.6,
+        "max_virtual_memory_percent_system": 71.5,
+        "log_file": "resource_usage.csv"
+      }
+    }
+  },
+  "comparison": {
+    "dirty_ibm": {
+      "accuracy_diff": -0.03947368421052633,
+      "f1_diff": -0.0873563218390806,
+      "roc_auc_diff": -0.10091145833333348,
+      "dpd_gender_diff": 0.004261363636363619,
+      "eod_gender_diff": -0.11099671099671099,
+      "dpd_age_binned_diff": 0.04466501240694781,
+      "eod_age_binned_diff": 0.0
+    }
+  },
+  "mlops_metrics_dirty_run": {
+    "drift_detected_in_this_run": false,
+    "pipeline_duration_seconds": null
+  }
+}

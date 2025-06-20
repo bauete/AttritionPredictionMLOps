@@ -1,0 +1,186 @@
+{
+  "statistical_tests": {
+    "TotalWorkingYears": {
+      "p_value": 1.0,
+      "drift": false,
+      "test": "KS"
+    },
+    "YearsAtCompany": {
+      "p_value": 0.0009118471040527581,
+      "drift": true,
+      "test": "KS"
+    },
+    "Education": {
+      "p_value": 1.0,
+      "drift": false,
+      "test": "KS"
+    },
+    "EducationField": {
+      "p_value": 0.9999840407745041,
+      "drift": false,
+      "test": "ChiSq"
+    },
+    "Over18": {
+      "p_value": 1.0,
+      "drift": false,
+      "test": "ChiSq"
+    },
+    "EmployeeNumber": {
+      "p_value": 1.0,
+      "drift": false,
+      "test": "KS"
+    },
+    "Age": {
+      "p_value": 2.8384971968002305e-16,
+      "drift": true,
+      "test": "KS"
+    },
+    "EnvironmentSatisfaction": {
+      "p_value": 0.9848766123780981,
+      "drift": false,
+      "test": "KS"
+    },
+    "JobInvolvement": {
+      "p_value": 0.9986283418822054,
+      "drift": false,
+      "test": "KS"
+    },
+    "JobLevel": {
+      "p_value": 0.9999896721989116,
+      "drift": false,
+      "test": "KS"
+    },
+    "TrainingTimesLastYear": {
+      "p_value": 1.0,
+      "drift": false,
+      "test": "KS"
+    },
+    "PercentSalaryHike": {
+      "p_value": 1.606310961184429e-274,
+      "drift": true,
+      "test": "KS"
+    },
+    "PerformanceRating": {
+      "p_value": 1.0,
+      "drift": false,
+      "test": "KS"
+    },
+    "JobRole": {
+      "p_value": 0.9999984169809147,
+      "drift": false,
+      "test": "ChiSq"
+    },
+    "WorkLifeBalance": {
+      "p_value": 1.0,
+      "drift": false,
+      "test": "KS"
+    },
+    "MonthlyRate": {
+      "p_value": 1.0067459798995626e-17,
+      "drift": true,
+      "test": "KS"
+    },
+    "BusinessTravel": {
+      "p_value": 0.9591458317165714,
+      "drift": false,
+      "test": "ChiSq"
+    },
+    "JobSatisfaction": {
+      "p_value": 1.0,
+      "drift": false,
+      "test": "KS"
+    },
+    "MonthlyIncome": {
+      "p_value": 4.186971830371954e-17,
+      "drift": true,
+      "test": "KS"
+    },
+    "StockOptionLevel": {
+      "p_value": 1.0,
+      "drift": false,
+      "test": "KS"
+    },
+    "YearsWithCurrManager": {
+      "p_value": 1.0,
+      "drift": false,
+      "test": "KS"
+    },
+    "Department": {
+      "p_value": 2.7931636125010753e-75,
+      "drift": true,
+      "test": "ChiSq"
+    },
+    "Attrition": {
+      "p_value": 0.9969087316596977,
+      "drift": false,
+      "test": "ChiSq"
+    },
+    "MaritalStatus": {
+      "p_value": 4.411688205467391e-21,
+      "drift": true,
+      "test": "ChiSq"
+    },
+    "StandardHours": {
+      "status": "skipped_mixed_or_empty_numeric",
+      "p_value": null
+    },
+    "DailyRate": {
+      "p_value": 0.9999999999999607,
+      "drift": false,
+      "test": "KS"
+    },
+    "NumCompaniesWorked": {
+      "p_value": 1.0,
+      "drift": false,
+      "test": "KS"
+    },
+    "HourlyRate": {
+      "p_value": 1.0,
+      "drift": false,
+      "test": "KS"
+    },
+    "OverTime": {
+      "p_value": 9.718439432993553e-12,
+      "drift": true,
+      "test": "ChiSq"
+    },
+    "RelationshipSatisfaction": {
+      "p_value": 1.0,
+      "drift": false,
+      "test": "KS"
+    },
+    "YearsInCurrentRole": {
+      "p_value": 1.0,
+      "drift": false,
+      "test": "KS"
+    },
+    "Gender": {
+      "p_value": 3.3131031539319416e-06,
+      "drift": true,
+      "test": "ChiSq"
+    },
+    "YearsSinceLastPromotion": {
+      "p_value": 1.79126403965878e-40,
+      "drift": true,
+      "test": "KS"
+    },
+    "EmployeeCount": {
+      "status": "skipped_mixed_or_empty_numeric",
+      "p_value": null
+    },
+    "DistanceFromHome": {
+      "p_value": 5.207847364900288e-25,
+      "drift": true,
+      "test": "KS"
+    }
+  },
+  "anomaly_detection": {
+    "status": "skipped_IF_not_found"
+  },
+  "stat_summary": {
+    "total_features": 35,
+    "drifted_features": 11,
+    "drift_pct": 0.3142857142857143
+  },
+  "overall_drift": true
+}

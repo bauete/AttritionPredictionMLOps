@@ -1,0 +1,14 @@
+# requirements.txt
+pandas==2.0.3
+numpy==1.24.3
+scikit-learn==1.3.0
+xgboost==1.7.6
+joblib==1.3.2
+matplotlib==3.7.2
+seaborn==0.12.2
+evidently==0.4.5 
+fairlearn==0.9.0 
+psutil==5.9.8  # 
+imbalanced-learn==0.11.0
+tabulate==0.9.0
+xgboost==1.7.6
