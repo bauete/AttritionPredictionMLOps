@@ -213,7 +213,6 @@ def run_experiment_dirty_only(ibm_raw_dataset_path_for_drift_reference, dirty_da
         if mlops_dirty_results and mlops_dirty_results.get("error"): 
             print(f"  MLOps (Dirty IBM) error: {mlops_dirty_results.get('error')}")
 
-    print(f"  MLOps drift detected in this run: {bool(drift_detections_in_run)}")
     if pipeline_duration_seconds is not None:
         print(f"  MLOps pipeline duration for dirty data: {pipeline_duration_seconds:.2f} seconds")
 

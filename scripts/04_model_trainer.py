@@ -140,7 +140,7 @@ xgb = XGBClassifier(
 
 # Define parameter distributions for RandomizedSearch
 param_dist = {
-    "learning_rate": uniform(loc=0.01, scale=0.3),       # between 0.01 and 0.31
+    "learning_rate": uniform(loc=0.01, scale=0.3),        # between 0.01 and 0.31
     "n_estimators": randint(100, 1000),                   # between 100 and 999
     "max_depth": randint(3, 11),                          # integers [3, 10]
     "min_child_weight": randint(1, 11),                   # integers [1, 10]
@@ -148,7 +148,7 @@ param_dist = {
     "colsample_bytree": uniform(loc=0.5, scale=0.5),      # between 0.5 and 1.0
     "reg_alpha": uniform(loc=0.0, scale=1.0),             # L1 regularization [0, 1]
     "reg_lambda": uniform(loc=0.0, scale=1.0),            # L2 regularization [0, 1]
-    "gamma": uniform(loc=0.0, scale=1.0)                  # Minimum loss reduction [0, 1]
+    # "gamma": uniform(loc=0.0, scale=1.0)                # Minimum loss reduction [0, 1]
 }
 
 # Only include scale_pos_weight when not using SMOTE
@@ -165,7 +165,7 @@ cv = StratifiedKFold(n_splits=10, shuffle=True, random_state=42)
 rand_search = RandomizedSearchCV(
     estimator=xgb,
     param_distributions=param_dist,
-    n_iter=100,
+    n_iter=50,
     scoring="f1",
     cv=cv,
     verbose=1,

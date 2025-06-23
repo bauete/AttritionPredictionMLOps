@@ -102,7 +102,7 @@ auc_point = roc_auc_score(y_test, y_pred_proba)
 acc_point = accuracy_score(y_test, y_pred)
 precision_point = precision_score(y_test, y_pred, zero_division=0)
 recall_point = recall_score(y_test, y_pred, zero_division=0)
-f1_point = f1_score(y_test, y_pred, zero_division=0)
+f1_point = f1_score(y_test, y_pred, zero_division=0, average="weighted")
 
 print(f"Point estimates on the hold-out test set:")
 print(f"  AUC:       {auc_point:.4f}")
@@ -177,7 +177,7 @@ def bootstrap_metric(metric_func, y_true, y_probs, y_preds, n_boot=1000, alpha=0
         else:
             y_pred_boot = y_preds.iloc[idxs] # Use .iloc for Series
             if metric_func.__name__ in ["precision_score", "recall_score", "f1_score"]:
-                stats.append(metric_func(y_true_boot, y_pred_boot, zero_division=0))
+                stats.append(metric_func(y_true_boot, y_pred_boot, zero_division=0, average="weighted"))
             else: # For accuracy_score or other metrics not needing zero_division
                 stats.append(metric_func(y_true_boot, y_pred_boot))
     
