@@ -1,4 +1,8 @@
-# 05_model_evaluator.py
+"""
+Step 5: Model Evaluation
+
+This script evaluates a trained XGBoost model on a hold-out test set, computes point estimates, fairness metrics.
+"""
 
 import os
 import joblib

@@ -1,4 +1,9 @@
-# scripts/03_feature_engineer.py
+"""
+Step 3: Feature Engineering
+
+This script performs the feature engineering. 
+It prepares the data for modeling by creating new features, handling missing columns, and saving the processed data.
+"""
 import argparse
 import pandas as pd
 import numpy as np

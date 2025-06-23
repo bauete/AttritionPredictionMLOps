@@ -1,4 +1,8 @@
-# baseline_pipeline.py
+"""
+Baseline ML Pipeline Script
+
+This script orchestrates the entire ML pipeline from data acquisition to model evaluation.
+"""
 import os
 import subprocess
 import pandas as pd

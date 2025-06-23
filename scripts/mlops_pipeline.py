@@ -1,4 +1,8 @@
-# mlops_pipeline.py
+"""
+MLOps Pipeline Script
+
+This script orchestrates the entire MLOps pipeline from data acquisition to model evaluation,
+"""
 import os
 import subprocess
 import pandas as pd

@@ -1,4 +1,8 @@
-# run_experiment_2.py
+"""
+Experiment 1: Comparing Baseline and MLOps Pipelines on Generalizability
+
+This script runs Experiment 2, which processes the KPMG dataset using the trained models and feature selectors from Experiment 1.
+"""
 
 import argparse
 import os
@@ -11,10 +15,6 @@ from mlops_pipeline import run_mlops_pipeline
 
 def run_experiment(ibm_dataset, kpmg_dataset, dirty_dataset, output_dir_exp2):
     """
-    Run experiment stage D2, T2, M2, C2: processing KPMG dataset.
-    Assumes prior stages (e.g., training on IBM data from experiment_1) have been completed
-    and their outputs are available in the expected locations.
-
     Args:
         ibm_dataset: Path to IBM dataset (used for MLOps reference_data_path).
         kpmg_dataset: Path to KPMG dataset (this will be processed).

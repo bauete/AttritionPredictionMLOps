@@ -1,5 +1,8 @@
-#fairlearn_analysis.py
-# Demonstrates the use of Fairlearn's MetricFrame to analyze model performance across sensitive feature groups.
+"""
+Fairlearn Analysis Script
+
+This script performs fairness analysis on a trained model using Fairlearn's MetricFrame.
+"""
 import os
 import joblib
 import json

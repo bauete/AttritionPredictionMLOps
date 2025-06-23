@@ -1,4 +1,8 @@
-# run_experiment_3.py
+"""
+Experiment 3: Comparing Baseline and MLOps Pipelines on Dirty IBM Dataset
+
+This script runs the third stage of the experiment, focusing on the dirty version of the IBM dataset.
+"""
 
 import argparse
 import os

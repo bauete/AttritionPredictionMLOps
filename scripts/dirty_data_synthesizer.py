@@ -1,4 +1,8 @@
-# dirty_data_synthesizer.py
+"""
+Dirty data synthesizer
+
+This script introduces various realistic error patterns to create a dirty version of the dataset.
+"""
 
 import pandas as pd
 import numpy as np

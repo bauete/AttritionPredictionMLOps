@@ -1,4 +1,8 @@
-# 04_model_trainer.py
+"""
+Step 4: Train XGBoost Model for Attrition Prediction
+
+This script trains an XGBoost model to predict employee attrition using the preprocessed IBM dataset.
+"""
 
 import os
 import joblib

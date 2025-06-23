@@ -1,3 +1,9 @@
+"""
+Step 2b: Preprocess KPMG Dataset
+
+This script preprocesses the KPMG dataset to align it with an IBM-style dataset.
+"""
+
 import pandas as pd
 import numpy as np
 from datetime import datetime

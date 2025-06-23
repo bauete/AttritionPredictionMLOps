@@ -1,3 +1,10 @@
+"""
+Step 1b: Drift Detector
+*MLOps Only
+
+This script detects data drift by comparing current and reference datasets using statistical tests and Isolation Forest.
+"""
+
 import argparse
 import os
 import json

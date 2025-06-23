@@ -1,7 +1,8 @@
-# McNemar.py
-# This script performs McNemar's test to statistically compare the error rates of two classification models
-# on the same dataset. It prints the contingency table and test results, indicating if the difference is significant.
+"""
+McNemar's Test for Model Comparison
 
+This script performs McNemar's test to compare the performance of two classification models
+"""
 import argparse
 import numpy as np
 from statsmodels.stats.contingency_tables import mcnemar

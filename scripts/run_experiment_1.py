@@ -1,4 +1,8 @@
-# run_experiment_1.py
+"""
+Experiment 1: Comparing Baseline and MLOps Pipelines on IBM Dataset
+
+This script runs an experiment to compare the performance of a baseline ML pipeline and an MLOps pipeline on the IBM dataset.
+"""
 
 import argparse
 import os

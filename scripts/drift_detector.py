@@ -1,4 +1,8 @@
-# drift_detector.py
+"""
+Drift Detector Script
+
+This script detects data drift between a reference dataset and a current dataset.
+"""
 
 import pandas as pd
 import numpy as np

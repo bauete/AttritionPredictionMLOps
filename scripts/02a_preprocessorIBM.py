@@ -1,4 +1,8 @@
-# scripts/02_preprocessor.py
+"""
+Step 2a: Preprocess IBM Dataset
+
+This script preprocesses the IBM dataset for further analysis.
+"""
 import os
 import pandas as pd
 import argparse

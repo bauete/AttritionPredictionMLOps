@@ -1,4 +1,6 @@
-# scripts/utils.py
+"""
+Utility functions for data loading, saving, and model handling.
+"""
 import pandas as pd
 import joblib
 import os
