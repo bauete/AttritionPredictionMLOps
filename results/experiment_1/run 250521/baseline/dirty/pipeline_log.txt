@@ -1,9 +1,0 @@
-Starting Baseline Pipeline for source: dirty at 2025-05-21 17:08:56.317167
-Output Directory: results/experiment_1/baseline/dirty
-Evaluate Only: True
-Reference Artifacts Directory: results/experiment_1/baseline/ibm
-
-
-PIPELINE FAILED: Unsupported source 'dirty' for determining input_file for data_acquirer.
-
-Pipeline finished at 2025-05-21 17:08:56.317446
