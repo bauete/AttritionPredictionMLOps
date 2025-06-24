@@ -66,7 +66,7 @@ def run_experiment_dirty_only(ibm_raw_dataset_path_for_drift_reference, dirty_da
     os.makedirs(dirty_baseline_output_dir, exist_ok=True)
     os.makedirs(dirty_mlops_output_dir, exist_ok=True)
     
-    print(f"\n===== EXPERIMENT 3 STARTED AT {timestamp} =====")
+    print(f"\n EXPERIMENT 3 STARTED AT {timestamp}")
     print(f"Results will be saved to: {output_dir_exp3}")
 
     print(f"Expecting reference IBM artifacts from Experiment 1 in:")
@@ -78,10 +78,9 @@ def run_experiment_dirty_only(ibm_raw_dataset_path_for_drift_reference, dirty_da
         print(f"Warning: Reference IBM artifact directories from {experiment_1_artifacts_root} not found. This experiment stage assumes they exist from prior runs.")
         # Depending on strictness, you might want to exit or raise an error here.
 
-    # -------------------------------
     # D3 & T3: Test pipelines with dirty dataset
-    # -------------------------------
-    print("\n===== STAGE D3 & T3: TESTING ON DIRTY IBM DATASET =====")
+
+    print("\n STAGE D3 & T3: TESTING ON DIRTY IBM DATASET")
     
     print("\nRunning baseline pipeline on dirty IBM dataset (evaluating with IBM model)...")
     # Baseline for dirty data uses IBM's trained model and feature selector from Experiment 1.
@@ -112,18 +111,18 @@ def run_experiment_dirty_only(ibm_raw_dataset_path_for_drift_reference, dirty_da
         reference_artifacts_dir=ibm_mlops_artifacts_dir
     )
     
-    # -------------------------------
+    
     # M3: Evaluate and log performance
-    # -------------------------------
-    print("\n===== STAGE M3: EVALUATING DIRTY IBM DATA PERFORMANCE =====")
+    
+    print("\n STAGE M3: EVALUATING DIRTY IBM DATA PERFORMANCE")
     
     results["baseline"]["dirty_ibm"] = baseline_dirty_results if baseline_dirty_results else {}
     results["mlops"]["dirty_ibm"] = mlops_dirty_results if mlops_dirty_results else {}
     
-    # -------------------------------
+    
     # C3: Metrics comparison for Dirty Dataset
-    # -------------------------------
-    print("\n===== STAGE C3: DIRTY IBM DATA METRICS COMPARISON =====")
+    
+    print("\n STAGE C3: DIRTY IBM DATA METRICS COMPARISON")
     
     baseline_res_safe_dirty = baseline_dirty_results or {}
     mlops_res_safe_dirty = mlops_dirty_results or {}
@@ -191,7 +190,7 @@ def run_experiment_dirty_only(ibm_raw_dataset_path_for_drift_reference, dirty_da
     with open(results_file_path, "w") as f:
         json.dump(results, f, indent=2, default=lambda x: str(x) if isinstance(x, (datetime.datetime, datetime.date, pd.Timestamp)) or hasattr(x, 'item') else x)
     
-    print("\n===== EXPERIMENT 3 (DIRTY IBM DATA ONLY) COMPLETED =====")
+    print("\n EXPERIMENT 3 (DIRTY IBM DATA ONLY) COMPLETED")
     print(f"Results saved to {results_file_path}")
     
     # Print summary for Dirty IBM results

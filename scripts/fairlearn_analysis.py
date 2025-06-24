@@ -22,9 +22,9 @@ from fairlearn.metrics import MetricFrame, demographic_parity_difference, equali
 
 
 def main():
-    # ----------------------------------------
+    ---------
     # 0. Argument Parsing 
-    # ----------------------------------------
+    ---------
     parser = argparse.ArgumentParser(
         description="Analyze model fairness using Fairlearn's MetricFrame."
     )
@@ -48,9 +48,9 @@ def main():
     )
     args = parser.parse_args()
 
-    # ----------------------------------------
+    ---------
     # 1. Load data, model, and scaler
-    # ----------------------------------------
+    ---------
     print(f"Loading data from: {args.input_file}")
     df = pd.read_csv(args.input_file)
 
@@ -101,16 +101,16 @@ def main():
     print(f"Loading model from: {args.model_path}")
     model = joblib.load(args.model_path)
 
-    # ----------------------------------------
+    ---------
     # 2. Generate predictions
-    # ----------------------------------------
+    ---------
     print("Generating predictions...")
     y_pred_proba = model.predict_proba(X_test_scaled)[:, 1]
     y_pred = (y_pred_proba >= 0.5).astype(int)
 
-    # ----------------------------------------
+    ---------
     # 3. Prepare sensitive features for fairness analysis
-    # ----------------------------------------
+    ---------
     sensitive_features = {}
 
     # Gender: handle both one-hot and single-column encodings
@@ -138,9 +138,9 @@ def main():
         filtered_age_bins = raw_age_bins.where(raw_age_bins.isin(present_bins))
         sensitive_features["Age_Group"] = filtered_age_bins
 
-    # ----------------------------------------
+    ---------
     # 4. Create MetricFrame for label-based metrics (accuracy, precision, recall, F1)
-    # ----------------------------------------
+    ---------
     print("\nCreating MetricFrame with multiple label-based metrics...")
 
     metrics = {
@@ -237,9 +237,9 @@ def main():
             "equalized_odds_difference": (float(eod) if eod is not None else None)
         }
 
-        # ----------------------------------------
+        ---------
         # 5. Compute per-group AUC manually
-        # ----------------------------------------
+        ---------
         auc_by_group = {}
         for grp in feature_vals.dropna().unique():
             mask = (feature_vals == grp)
@@ -308,9 +308,9 @@ def main():
         fairness_metrics[f"auc_difference_{feature_name}"] = auc_diff
         fairness_metrics[f"auc_ratio_{feature_name}"] = auc_ratio
 
-    # ----------------------------------------
+    ---------
     # 6. Save results to JSON
-    # ----------------------------------------
+    ---------
     output_dir = args.output_dir
     os.makedirs(output_dir, exist_ok=True)
     output_path = os.path.join(output_dir, "fairness_analysis.json")

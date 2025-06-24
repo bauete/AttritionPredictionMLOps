@@ -62,10 +62,10 @@ def run_experiment(ibm_dataset, kpmg_dataset, dirty_dataset, output_dir_exp2):
     if not os.path.exists(ibm_baseline_artifacts_dir) or not os.path.exists(ibm_mlops_artifacts_dir):
         print(f"Warning: Reference IBM artifact directories from {experiment_1_artifacts_root} not found. This experiment stage assumes they exist from prior runs.")
 
-    # -------------------------------
+    
     # D2 & T2: Run pipelines on KPMG dataset
-    # -------------------------------
-    print("\n===== STAGE D2 & T2: TESTING ON KPMG DATASET =====")
+    
+    print("\n STAGE D2 & T2: TESTING ON KPMG DATASET")
     
     print("\nRunning baseline pipeline on KPMG dataset...")
     # Baseline pipeline uses IBM's trained model and feature selector from Experiment 1.
@@ -92,17 +92,17 @@ def run_experiment(ibm_dataset, kpmg_dataset, dirty_dataset, output_dir_exp2):
         reference_artifacts_dir=ibm_mlops_artifacts_dir
     )
     
-    # -------------------------------
+    
     # M2: Evaluate and log performance for KPMG dataset
-    # -------------------------------
-    print("\n===== STAGE M2: EVALUATING KPMG PERFORMANCE =====")
+    
+    print("\n STAGE M2: EVALUATING KPMG PERFORMANCE")
     results["kpmg_processing_results"]["baseline"] = baseline_kpmg_results if baseline_kpmg_results else {}
     results["kpmg_processing_results"]["mlops"] = mlops_kpmg_results if mlops_kpmg_results else {}
     
-    # -------------------------------
+    
     # C2: Metrics comparison for KPMG dataset
-    # -------------------------------
-    print("\n===== STAGE C2: KPMG METRICS COMPARISON =====")
+    
+    print("\n STAGE C2: KPMG METRICS COMPARISON")
     baseline_res_safe = baseline_kpmg_results or {}
     mlops_res_safe = mlops_kpmg_results or {}
 
@@ -151,7 +151,7 @@ def run_experiment(ibm_dataset, kpmg_dataset, dirty_dataset, output_dir_exp2):
         # Use a default converter for datetime and pandas types
         json.dump(results, f, indent=2, default=lambda x: str(x) if isinstance(x, (datetime.datetime, datetime.date, pd.Timestamp)) or hasattr(x, 'item') else x)
     
-    print("\n===== KPMG STAGE (EXPERIMENT 2) COMPLETED =====")
+    print("\n KPMG STAGE (EXPERIMENT 2) COMPLETED")
     print(f"Results for KPMG stage saved to {results_filename}")
     
     # Print summary for KPMG results

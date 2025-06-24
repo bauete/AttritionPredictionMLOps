@@ -119,11 +119,11 @@ def run_experiment(ibm_dataset, kpmg_dataset, dirty_dataset, output_dir):
     os.makedirs(baseline_dir, exist_ok=True)
     os.makedirs(mlops_dir, exist_ok=True)
     
-    print(f"\n===== EXPERIMENT 1 STARTED AT {timestamp} =====")
+    print(f"\n EXPERIMENT 1 STARTED AT {timestamp}")
     print(f"Results will be saved to: {output_dir}")
     
     # D1 & T1: Train both pipelines on IBM dataset
-    print("\n===== STAGE D1 & T1: TRAINING ON IBM DATASET =====")
+    print("\n STAGE D1 & T1: TRAINING ON IBM DATASET")
     
     print("\nRunning baseline pipeline on IBM dataset...")
     baseline_ibm_results = run_baseline_pipeline("ibm", f"{baseline_dir}/ibm")
@@ -132,7 +132,7 @@ def run_experiment(ibm_dataset, kpmg_dataset, dirty_dataset, output_dir):
     mlops_ibm_results = run_mlops_pipeline("ibm", f"{mlops_dir}/ibm")
     
     # M1: Evaluation of initial performance
-    print("\n===== STAGE M1: EVALUATING INITIAL PERFORMANCE =====")
+    print("\n STAGE M1: EVALUATING INITIAL PERFORMANCE")
     
     results["baseline"]["ibm"] = baseline_ibm_results
     results["mlops"]["ibm"] = mlops_ibm_results
@@ -168,7 +168,7 @@ def run_experiment(ibm_dataset, kpmg_dataset, dirty_dataset, output_dir):
         json_safe_results = convert_numpy_types(results)
         json.dump(json_safe_results, f, indent=2)
 
-    print("\n===== IBM DATASET EXPERIMENT COMPLETED =====")
+    print("\n IBM DATASET EXPERIMENT COMPLETED")
     print(f"Results saved to {output_dir}/experiment_1.json") 
 
     # Print summary of main metrics
@@ -178,7 +178,7 @@ def run_experiment(ibm_dataset, kpmg_dataset, dirty_dataset, output_dir):
     print(f"IBM Dataset - Baseline AUC: {baseline_ibm_roc:.4f}, MLOps AUC: {mlops_ibm_roc:.4f}")
     
     # Add statistical testing section using Wilcoxon test directly in the experiment
-    print("\n===== RUNNING STATISTICAL SIGNIFICANCE TESTING =====")
+    print("\n RUNNING STATISTICAL SIGNIFICANCE TESTING")
     baseline_training_path = f"{baseline_dir}/ibm/artifacts/training_metrics.json"
     mlops_training_path = f"{mlops_dir}/ibm/artifacts/training_metrics.json"
     
@@ -248,7 +248,7 @@ def run_experiment(ibm_dataset, kpmg_dataset, dirty_dataset, output_dir):
         json_safe_results = convert_numpy_types(results)
         json.dump(json_safe_results, f, indent=2)
     
-    print("\n===== IBM DATASET EXPERIMENT COMPLETED =====")
+    print("\n IBM DATASET EXPERIMENT COMPLETED")
     print(f"Results saved to {output_dir}/experiment_1.json")
 
 def convert_numpy_types(obj):

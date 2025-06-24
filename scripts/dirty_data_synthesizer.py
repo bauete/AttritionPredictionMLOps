@@ -14,9 +14,9 @@ df_clean = pd.read_csv('data/ibm_dataset.csv')
 df_dirty = df_clean.copy()
 np.random.seed(42)
 
-# -------------------------------
+
 # 1. Simulate Missing & Partial Records
-# -------------------------------
+
 
 # 1a. For all JobLevel 1 employees, set 'EnvironmentSatisfaction' to NaN (simulate schema-driven missingness)
 mask_entry_level = df_dirty['JobLevel'] == 1
@@ -27,9 +27,9 @@ mask_senior = df_dirty['JobLevel'] >= 3
 senior_indices = df_dirty[mask_senior].sample(frac=0.05, random_state=24).index
 df_dirty.loc[senior_indices, ['JobSatisfaction', 'WorkLifeBalance']] = np.nan
 
-# -------------------------------
+
 # 2. Inconsistent Formats & Typos in Categorical Fields
-# -------------------------------
+
 
 # 2a. Introduce department name typos/variants for 10% of each department
 dept_typo_map = {
@@ -64,9 +64,9 @@ for idx in ot_indices:
     elif val == 'No':
         df_dirty.at[idx, 'OverTime'] = np.random.choice(['N', 'no', ' NO '])
 
-# -------------------------------
+
 # 3. Numeric Formatting & Unit Errors
-# -------------------------------
+
 
 # 3a. Swap comma/period in 'MonthlyIncome' for 4% of rows (simulate locale issues)
 income_indices = df_dirty.sample(frac=0.04, random_state=33).index
@@ -93,9 +93,9 @@ for idx in id_indices:
         char_list[i], char_list[i+1] = char_list[i+1], char_list[i]
         df_dirty.at[idx, 'EmployeeNumber'] = int(''.join(char_list))
 
-# -------------------------------
+
 # 4. Introduce Outliers & Noise in Numeric Fields
-# -------------------------------
+
 
 # 4a. Multiply 'Age' by 2.5–3.5 for 1% of rows (extreme outliers)
 age_outlier_indices = df_dirty.sample(frac=0.01, random_state=71).index
@@ -111,9 +111,9 @@ twy_indices = df_dirty.sample(frac=0.005, random_state=83).index
 pareto_spikes = (np.random.pareto(a=2, size=len(twy_indices)) + 1) * df_dirty.loc[twy_indices, 'TotalWorkingYears'].median()
 df_dirty.loc[twy_indices, 'TotalWorkingYears'] = pareto_spikes
 
-# -------------------------------
+
 # 5. Duplicates or Contradictory Records
-# -------------------------------
+
 
 # 5a. Add 3% exact duplicates, but change 'Department' and 'JobLevel' to create conflicts
 dup_indices = df_dirty.sample(frac=0.03, random_state=91).index
@@ -124,9 +124,9 @@ for i, idx in enumerate(dup_indices):
     duplicates.at[idx, 'JobLevel'] = np.random.randint(1, 6)  # JobLevel assumed 1–5
 df_dirty = pd.concat([df_dirty, duplicates], ignore_index=True)
 
-# -------------------------------
+
 # 6. Legacy or Deprecated Categorical Values
-# -------------------------------
+
 
 # 6a. Rename 10% of 'Research & Development' to 'R&D Lab'
 mask_rd = df_dirty['Department'] == 'Research & Development'
@@ -138,9 +138,9 @@ mask_sales = df_dirty['Department'] == 'Sales'
 old_sale_indices = df_dirty[mask_sales].sample(frac=0.05, random_state=113).index
 df_dirty.loc[old_sale_indices, 'Department'] = 'Sale Dept'
 
-# -------------------------------
+
 # 7. Invalid Values in Categorical Ratings
-# -------------------------------
+
 
 # 7a. Set 'EnvironmentSatisfaction' and 'JobInvolvement' to 0 or 5 (invalid) for 2% of rows
 es_indices = df_dirty.sample(frac=0.02, random_state=127).index
@@ -148,17 +148,17 @@ df_dirty.loc[es_indices, 'EnvironmentSatisfaction'] = np.random.choice([0, 5], s
 ji_indices = df_dirty.sample(frac=0.02, random_state=131).index
 df_dirty.loc[ji_indices, 'JobInvolvement'] = np.random.choice([0, 5], size=len(ji_indices))
 
-# -------------------------------
+
 # 8. Contradictory Attrition Flags
-# -------------------------------
+
 
 # 8a. For 1% of active employees, set 'YearsSinceLastPromotion' > 'TotalWorkingYears' (logical contradiction)
 active_no_indices = df_dirty[df_dirty['Attrition'] == 'No'].sample(frac=0.01, random_state=137).index
 df_dirty.loc[active_no_indices, 'YearsSinceLastPromotion'] = df_dirty.loc[active_no_indices, 'TotalWorkingYears'] + np.random.randint(1, 5, size=len(active_no_indices))
 
-# -------------------------------
+
 # 9. Distribution Drift (Systematic Shifts)
-# -------------------------------
+
 
 print("Adding distribution drift to multiple numerical columns...")
 
@@ -182,8 +182,8 @@ for column, multiplier in drift_columns.items():
     df_dirty[column] = df_dirty[column].round(2)
     df_dirty.loc[string_mask, column] = string_values
 
-# -------------------------------
+
 # Save the dirty dataset
-# -------------------------------
+
 df_dirty.to_csv('data/ibm_dataset_dirty.csv', index=False)
 print("Dirty dataset created using only the specified columns, with realistic error patterns.")
