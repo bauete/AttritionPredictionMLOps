@@ -15,9 +15,9 @@ from sklearn.utils import resample
 from sklearn.model_selection import train_test_split
 from fairlearn.metrics import demographic_parity_difference, equalized_odds_difference
 
----------
+
 # 0. Argument Parsing 
----------
+
 # Parse command-line arguments for input data, model, and output directory.
 parser = argparse.ArgumentParser(description="Evaluate a trained XGBoost model.")
 parser.add_argument("--input_file",type=str,required=True,help="Path to the engineered CSV data file (full dataset).")
@@ -25,9 +25,9 @@ parser.add_argument("--model_path", type=str, required=True, help="Path to the t
 parser.add_argument("--output_dir",type=str,required=True, help="Directory to save the evaluation_summary.json.")
 args = parser.parse_args()
 
----------
+
 # 1. Load data, model, and scaler
----------
+
 print(f"Loading data from: {args.input_file}")
 df = pd.read_csv(args.input_file)
 
@@ -75,9 +75,9 @@ else:
 print(f"Loading model from: {args.model_path}")
 model = joblib.load(args.model_path)
 
----------
+
 # 2. Compute point estimates
----------
+
 print("Computing point estimates...")
 # Predict probabilities and binary labels
 y_pred_proba = model.predict_proba(X_test_scaled)[:, 1]
@@ -111,9 +111,9 @@ print(f"  Precision: {precision_point:.4f}")
 print(f"  Recall:    {recall_point:.4f}")
 print(f"  F1‐Score:  {f1_point:.4f}")
 
----------
+
 # 2.5 Compute Fairness Metrics
----------
+
 print("\nComputing fairness metrics...")
 fairness_metrics_results = {}
 
@@ -151,9 +151,9 @@ else:
     fairness_metrics_results["demographic_parity_difference_age_binned"] = None
     fairness_metrics_results["equalized_odds_difference_age_binned"] = None
 
----------
+
 # 3. Compute 95% bootstrap confidence intervals
----------
+
 def bootstrap_metric(metric_func, y_true, y_probs, y_preds, n_boot=1000, alpha=0.95):
     """
     Compute the bootstrap confidence interval for a given metric function.
@@ -207,9 +207,9 @@ print(f"  Precision CI: [{precision_ci[0]:.4f}, {precision_ci[1]:.4f}]")
 print(f"  Recall CI:    [{recall_ci[0]:.4f}, {recall_ci[1]:.4f}]")
 print(f"  F1‐Score CI:  [{f1_ci[0]:.4f}, {f1_ci[1]:.4f}]")
 
----------
+
 # 4. Save results to JSON
----------
+
 # Collect all results in a dictionary
 evaluation_summary = {
     "auc": {"point_estimate": auc_point, "ci_lower": auc_ci[0], "ci_upper": auc_ci[1]},

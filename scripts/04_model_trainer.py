@@ -22,9 +22,9 @@ from sklearn.model_selection import (
 from sklearn.preprocessing import StandardScaler
 from scipy.stats import uniform, randint
 
----------
+
 # 1. Load preprocessed data
----------
+
 
 # --- Argument Parsing ---
 parser = argparse.ArgumentParser(description="Train an XGBoost model for attrition prediction.")
@@ -66,9 +66,9 @@ if 'Unnamed: 0' in df.columns: # Often an index column from previous saves
 X = df.drop(columns=columns_to_drop, errors='ignore') # Use errors='ignore' for robustness
 y = df["Attrition"]
 
----------
+
 # 2. Train/validation split (final hold-out)
----------
+
 # We keep a small hold-out test set apart; this script only trains on the remaining data.
 X_trainval, X_test, y_trainval, y_test = train_test_split(
     X, y,
@@ -82,9 +82,9 @@ counts = y_trainval.value_counts()
 scale_pos_weight_calculated = counts[0] / counts[1] if len(counts) == 2 and counts[1] > 0 else 1
 print(f"Calculated scale_pos_weight: {scale_pos_weight_calculated}")
 
----------
+
 # 3. Preprocessing: Standardize numeric features
----------
+
 numeric_cols = X_trainval.select_dtypes(include=["int64", "float64"]).columns
 scaler = StandardScaler()
 
@@ -94,9 +94,9 @@ X_trainval[numeric_cols] = scaler.fit_transform(X_trainval[numeric_cols])
 # Save the scaler for future use
 joblib.dump(scaler, os.path.join(OUTPUT_DIR, "scaler.pkl"))
 
----------
+
 # 3b. Apply SMOTE to handle class imbalance
----------
+
 if args.use_smote:
     print("\nApplying SMOTE to balance classes in training data...")
     # Split for separate SMOTE application (only on training data)
@@ -128,9 +128,9 @@ else:
         "applied": False
     }
 
----------
+
 # 4. Hyperparameter search with StratifiedKFold + RandomizedSearchCV
----------
+
 xgb = XGBClassifier(
     objective="binary:logistic",
     eval_metric="auc",
@@ -181,9 +181,9 @@ print("Best hyperparameters found:")
 print(rand_search.best_params_)
 print(f"Best CV F1: {rand_search.best_score_:.4f}")
 
----------
+
 # 4.5 Extract and save all fold metrics for statistical testing
----------
+
 # Extract cross-validation results into a DataFrame
 cv_results = pd.DataFrame(rand_search.cv_results_)
 
@@ -204,9 +204,9 @@ print("\nF1 scores for each fold with best hyperparameters:")
 for fold, scores in best_config_scores.items():
     print(f"  {fold}: Test F1 = {scores['test_f1']:.4f}, Train F1 = {scores['train_f1']:.4f}")
 
----------
+
 # 5. Retrain final model with early stopping
----------
+
 # Split the train+val further into train and a small early-stop validation set
 X_train, X_val, y_train, y_val = train_test_split(
     X_trainval, y_trainval,
@@ -235,9 +235,9 @@ final_model.fit(
     verbose=False
 )
 
----------
+
 # 6. Calculate and save training and validation metrics
----------
+
 print("\nCalculating performance metrics across data splits...")
 
 def calculate_metrics(model, X, y, split_name):

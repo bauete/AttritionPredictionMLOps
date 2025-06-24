@@ -180,10 +180,10 @@ def run_baseline_pipeline(
         if monitor_thread.is_alive():
             monitor_thread.join(timeout=10)
         # Print timing summary
-        print("\n--- Stage Timing ---")
+        print("\n Stage Timing")
         for m in stage_metrics:
             print(f"{m['stage']}: {m['duration']:.2f}s")
-        print("--------------------")
+        print("\n")
         # Save pipeline log
         with open(pipeline_log, 'a') as f:
             f.write(f"\nPipeline finished at {pd.Timestamp.now().isoformat()}\n")
