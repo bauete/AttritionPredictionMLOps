@@ -140,15 +140,15 @@ xgb = XGBClassifier(
 
 # Define parameter distributions for RandomizedSearch
 param_dist = {
-    "learning_rate": uniform(loc=0.01, scale=0.3),        # between 0.01 and 0.31
-    "n_estimators": randint(100, 1000),                   # between 100 and 999
-    "max_depth": randint(3, 11),                          # integers [3, 10]
-    "min_child_weight": randint(1, 11),                   # integers [1, 10]
-    "subsample": uniform(loc=0.5, scale=0.5),             # between 0.5 and 1.0
-    "colsample_bytree": uniform(loc=0.5, scale=0.5),      # between 0.5 and 1.0
-    "reg_alpha": uniform(loc=0.0, scale=1.0),             # L1 regularization [0, 1]
-    "reg_lambda": uniform(loc=0.0, scale=1.0),            # L2 regularization [0, 1]
-    # "gamma": uniform(loc=0.0, scale=1.0)                # Minimum loss reduction [0, 1]
+    "learning_rate": uniform(loc=0.01, scale=0.3),
+    "n_estimators": randint(100, 1000),
+    "max_depth": randint(3, 11),
+    "min_child_weight": randint(1, 11),
+    "subsample": uniform(loc=0.5, scale=0.5),
+    "colsample_bytree": uniform(loc=0.5, scale=0.5),
+    "reg_alpha": uniform(loc=0.0, scale=1.0),
+    "reg_lambda": uniform(loc=0.0, scale=1.0),
+    # "gamma": uniform(loc=0.0, scale=1.0)
 }
 
 # Only include scale_pos_weight when not using SMOTE
